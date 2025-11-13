@@ -208,9 +208,9 @@ class PreProcessor():
         self.plot_dir = plot_dir
 
         # Carrying out missing reports and visualizations
-        # self.missing_reports()
-        # self.jointplot_outcome_vs_predictors()
-        # self.jointplot_outcome_vs_predictors_by_package()
+        self.missing_reports()
+        self.jointplot_outcome_vs_predictors()
+        self.jointplot_outcome_vs_predictors_by_package()
 
     def string_and_function(self, str: str, func: Callable) -> None:
         """_summary_
