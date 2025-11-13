@@ -10,6 +10,10 @@ Flow:
 
  Author: Sharat Sharma
  Date: Nov-25
+
+ WARNING: DO NOT RUN autopep8 ON THIS FILE AS IT WILL BREAK THE FORMATTING OF THE
+          PRINT STATEMENTS WHICH ARE INTENDED TO BE IN A SPECIFIC FORMAT.
+
 """
 
 from optparse import Option
@@ -352,9 +356,7 @@ class ModelTrain(PrepareInDatForModeling, PreProcessor):
         # Select columns to include in the model
         include_cols = package_cols + company_type_cols + tol_1_eng_cols + \
             _class_cols + logged_cols + add_usage_cols
-        self.logger.info(
-            f"Total number of exogenous variables considered for GLM: {
-                len(include_cols)}")
+        self.logger.info(f"Total number of exogenous variables considered for GLM: {len(include_cols)}")
         # Define exogenous variables for GLM by excluding specified columns
         self.exog_glm = [
             col for col in include_cols if col not in exclude_cols
@@ -385,11 +387,9 @@ class ModelTrain(PrepareInDatForModeling, PreProcessor):
             self.logger.info(
                 "Setting up and fitting GLM with Gamma family and log link function...")
             self.logger.info(
-                f"Endogenous variable (outcome): {
-                    self.endog_glm}")
+                f"Endogenous variable (outcome): {self.endog_glm}")
             self.logger.info(
-                f"Exogenous variables (predictors): {
-                    self.exog_glm}")
+                f"Exogenous variables (predictors): {self.exog_glm}")
 
             # Prepare exogenous and endogenous DataFrames, handling infinite
             # values

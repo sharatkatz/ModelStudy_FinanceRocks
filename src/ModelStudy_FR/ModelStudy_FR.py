@@ -119,6 +119,10 @@ as the outcome variable.
 
  Author: Sharat Sharma
  Date: Nov-25
+
+ WARNING: DO NOT RUN autopep8 ON THIS FILE AS IT WILL BREAK THE FORMATTING OF THE
+          PRINT STATEMENTS WHICH ARE INTENDED TO BE IN A SPECIFIC FORMAT.
+
 """
 
 from typing import List, Literal, Dict, cast
@@ -208,9 +212,9 @@ class PreProcessor():
         self.plot_dir = plot_dir
 
         # Carrying out missing reports and visualizations
-        # self.missing_reports()
-        # self.jointplot_outcome_vs_predictors()
-        # self.jointplot_outcome_vs_predictors_by_package()
+        self.missing_reports()
+        self.jointplot_outcome_vs_predictors()
+        self.jointplot_outcome_vs_predictors_by_package()
 
     def string_and_function(self, str: str, func: Callable) -> None:
         """_summary_
@@ -260,8 +264,7 @@ class PreProcessor():
         """Report missing values in the dataset by package."""
         if self.package_var not in self.customer_data.columns:
             print(
-                f"Package variable '{
-                    self.package_var}' not found in data. Skipping missing report by package.")
+                f"Package variable '{self.package_var}' not found in data. Skipping missing report by package.")
             return None
 
         for one_package in self.unique_packages:
@@ -299,8 +302,7 @@ class PreProcessor():
         """
         if self.package_var not in self.customer_data.columns:
             print(
-                f"Package variable '{
-                    self.package_var}' not found in data. Skipping missing visualization by package."
+                f"Package variable '{self.package_var}' not found in data. Skipping missing visualization by package."
             )
             return None
 
@@ -459,8 +461,7 @@ class PreProcessor():
         """
         if self.package_var not in self.customer_data.columns:
             print(
-                f"Package variable '{
-                    self.package_var}' not found in data. Skipping jointplot by package.")
+                f"Package variable '{self.package_var}' not found in data. Skipping jointplot by package.")
             return None
 
         predictor_cols = self.get_predictor_columns()
@@ -483,8 +484,7 @@ class PreProcessor():
                     plt.figure(figsize=(12, 10))
 
                 save_path = os.path.join(
-                    joint_plot_dir, f"jointplot_{
-                        self.outcome_col}_vs_{predictor_col}_package_{one_package}.png")
+                    joint_plot_dir, f"jointplot_{self.outcome_col}_vs_{predictor_col}_package_{one_package}.png")
 
                 try:
                     # seaborn.jointplot returns a JointGrid; capture it so we
@@ -497,8 +497,7 @@ class PreProcessor():
                         height=7
                     )
                     g.fig.suptitle(
-                        f'Joint Plot of {
-                            self.outcome_col} vs {predictor_col} for Package: {one_package}',
+                        f'Joint Plot of {self.outcome_col} vs {predictor_col} for Package: {one_package}',
                         y=1.00)
                     # save using the JointGrid figure
                     g.fig.savefig(save_path)
@@ -811,8 +810,7 @@ class PreProcessor():
                     self.normalize_column_values_datetime)
             else:
                 print(
-                    f"Column '{col}' has unsupported data type {
-                        col.__class__}. Skipping normalization.")
+                    f"Column '{col}' has unsupported data type {col.__class__}. Skipping normalization.")
         return outdf
 
     def keep_nominal_predictors_copy(self) -> List[str]:
@@ -1174,15 +1172,13 @@ class PreProcessor():
         if pd.api.types.is_numeric_dtype(outdf[self.outcome_col]):
             print()
             print(
-                f"Running module: log_transform_outcome on column: {
-                    self.outcome_col}")
+                f"Running module: log_transform_outcome on column: {self.outcome_col}")
             outdf[f"{self.outcome_col}_logged"] = self.log_transform_column(
                 outdf,
                 self.outcome_col)
         else:
             print(
-                f"Outcome column '{
-                    self.outcome_col}' is not numeric. Skipping log transformation.")
+                f"Outcome column '{self.outcome_col}' is not numeric. Skipping log transformation.")
 
         return outdf
 
