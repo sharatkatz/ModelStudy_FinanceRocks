@@ -197,9 +197,7 @@ class PreProcessor():
         ) if self.package_var in self.customer_data.columns else [None]
 
         # preparing outcome variable: total_revenue
-        revenue_columns: list[str] = self.get_revenue_before_discounts_columns(
-        )
-        # type: ignore
+        revenue_columns: list[str] = self.get_revenue_before_discounts_columns()
         revenue_data: DataFrame = cast(pd.DataFrame, self.customer_data.loc[:, revenue_columns])
         self.outcome_col = 'total_revenue'
         self.customer_data[self.outcome_col] = revenue_data.sum(axis="columns")
@@ -1196,3 +1194,48 @@ class PreProcessor():
             f"{col}_logged" for col in self.get_usage_metrics_columns()]
         regression_ready_cols = treated_cols + logged_usage_metric_cols
         return regression_ready_cols
+
+    def calculate_average_total_revenue_by_customer(self) -> pd.DataFrame:
+        """Calculate the average total revenue by customer. This is called as ARPC - Average Revenue Per Customer.
+
+        This method calculates the average total revenue for each customer in the dataset.
+        It groups the data by customer and computes the mean of the total revenue column.
+
+        Returns:
+            pd.DataFrame: A DataFrame containing the average total revenue by customer.
+        """
+        return self.customer_data.groupby("id")["total_revenue"].mean().reset_index()
+
+    def calculate_average_total_revenue_by_accounting_office(self) -> pd.DataFrame:
+        """Calculate the average total revenue by accounting office.
+
+        This method calculates the average total revenue for each accounting office in the dataset.
+        It groups the data by accounting office and computes the mean of the total revenue column.
+
+        Returns:
+            pd.DataFrame: A DataFrame containing the average total revenue by accounting office.
+        """
+        return self.customer_data.groupby("accounting_office_id")["total_revenue"].mean().reset_index()
+
+    def visualize_sort_company_lables_on_arpc(self):
+        """Sort the company labels on ARPC - Average Revenue Per Customer and prepare a plot.
+
+        This method sorts the company labels on ARPC - Average Revenue Per Customer.
+        It groups the data by company and computes the mean of the total revenue column and sorts the data in descending order.
+
+        Returns:
+            pd.DataFrame: A DataFrame containing the average total revenue by company sorted in descending order.
+        """
+        df = self.customer_data.groupby(
+            "company_id"
+        )["total_revenue"].mean().reset_index().sort_values(
+            by="total_revenue", ascending=False
+        )
+
+        df.plot(kind="bar", x="company_id", y="total_revenue")
+
+
+
+         
+
+        
