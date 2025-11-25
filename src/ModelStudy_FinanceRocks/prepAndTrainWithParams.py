@@ -34,7 +34,8 @@ import seaborn as sns  # type: ignore
 import pandas as pd  # type: ignore
 
 from ModelStudy_FR import setup_temp_plot_directory, PreProcessor  # type: ignore
-
+# import StandardScaler from sklearn
+from sklearn.preprocessing import StandardScaler  # type: ignore
 
 pd.set_option('display.max_columns', None)
 
@@ -465,6 +466,202 @@ class ModelTrain(PrepareInDatForModeling, PreProcessor):
             self.final_ols_results = final_ols_results
             self.mod_dsn = mod_dsn
 
+    def setup_LASSO(self):
+        """
+        Configure and fit a LASSO (L1-penalized) linear regression model for feature
+        selection on the prepared, log-transformed revenue modeling dataset.
+        High-level workflow:
+          1. Marks the model as additive and sets model_type if unset.
+          2. Appends '_logged' to the endogenous (target) variable name and builds an
+             initial superset of candidate predictors from the log-transformed frame.
+          3. Excludes:
+             - Logged versions of revenue-after-discounts columns.
+             - Predefined aggregate columns (e.g., total_records_mean_logged).
+             - Subsequently, highly correlated predictors above a specified threshold.
+          4. Selects predictors based on naming conventions (package_, company_type_,
+             tol_1_eng_, *_class, usage addon columns, plus logged transforms).
+          5. Adds a discounts_offered column (computed externally) to the design matrix.
+          6. Cleans infinities -> NaN and drops rows with any missing values.
+          7. Standardizes ONLY the endogenous variable (note: atypical; usually
+             predictors are standardized for LASSO) and leaves predictors as-is.
+          8. Fits an OLS model with statsmodels using fit_regularized(method='elastic_net',
+             alpha=0.1, L1_wt=1.0) to perform pure LASSO shrinkage.
+          9. Logs final coefficient vector and filters non-zero coefficients for
+             downstream feature interpretation.
+         10. Persists fitted results and modeling dataset on instance attributes.
+        Important implementation notes:
+          - self.endog_glm is mutated: initially a string naming the column; later
+            reassigned to a NumPy ndarray of standardized target values. This dual
+            use can be error-prone if other methods expect a string. Consider storing
+            the original name separately (e.g., self.endog_glm_name).
+          - self.exog_glm likewise transitions from a list of column names to the
+            NumPy design matrix. Similar caution applies.
+          - Highly correlated predictors are removed using a pairwise Pearson
+            correlation matrix and a hard threshold (0.7). This is performed prior
+            to regularization, which can help stability but may also remove variables
+            LASSO would have handled.
+          - Infinite values in predictors/target are converted to NaN and rows with
+            any NaN are dropped (complete-case analysis), which may bias if data are
+            not MCAR.
+          - alpha is hard-coded to 0.1; no cross-validation is performed. Model
+            sparsity and selected features may be sensitive to this choice.
+            This may require cross-validation to select alpha.
+          - L1_wt=1.0 sets a pure LASSO penalty (no ridge component). To allow
+            elastic net mixing, adjust L1_wt in (0,1).
+          - Discounts offered are appended after initial predictor filtering; ensure
+            discount_column_name is present and unique to avoid accidental overwrites.
+        Side effects / attributes set or modified:
+          - self.additive_type: bool flag set True.
+          - self.model_type: set to "Additive" if previously None.
+          - self.endog_glm: overwritten with ndarray of standardized target values.
+          - self.exog_glm: overwritten with ndarray of selected predictors.
+          - self.discounts_offered: DataFrame aligned to rows kept after dropna.
+          - self.final_lasso_results: statsmodels.regularized.RegressionResults object.
+          - self.mod_dsn: Final modeling DataFrame (predictors + target) after cleaning.
+          - Logging: detailed progress, counts, parameters, and non-zero coefficients.
+        Logging outputs include:
+          - Initial and final predictor counts.
+          - Parameters vector after regularized fitting.
+          - Non-zero coefficients (selected features).
+        Assumptions:
+          - self.log_transformed_predictors_df and
+            self.log_transformed_predictors_and_outcome_df exist and contain all
+            referenced columns.
+          - self.to_log_transform_columns() returns original (pre-suffix) column names.
+          - self.get_revenue_after_discounts_columns() returns columns requiring exclusion.
+          - self.sum_discount_columns(self.preprocessor.customer_data) returns a
+            1D array-like compatible with DataFrame construction.
+          - self.discount_column_name is defined.
+        Potential improvements:
+          - Introduce cross-validation (e.g., coordinate descent via sklearn) to
+            select alpha.
+          - Preserve original variable names separate from transformed arrays.
+          - Standardize predictors for more conventional LASSO behavior.
+          - Store feature importances (non-zero coefficients) in a dedicated attribute.
+          - Parameterize correlation threshold and alpha externally.
+        Returns:
+          None. Results are stored on instance attributes.
+        Raises:
+          AttributeError: If required preprocessing attributes or column name lists
+            are missing.
+          KeyError: If expected columns are absent in the underlying DataFrames.
+        """
+        self.logger.info("Setting up LASSO model for feature selection.")
+        self.logger.info("\n\n")
+
+        # Reuse setup logic from setup_OLS to define endog and exog variables
+        # This ensures consistency in data preparation
+        self.additive_type = True
+        if self.model_type is None:
+            self.model_type = "Additive"
+
+        self.endog_glm = f"{self.endog_glm}_logged"
+        predictor_cols_superset: List[str] = self.log_transformed_predictors_df.columns.tolist()
+
+        exclude_cols = []
+        for colname in self.get_revenue_after_discounts_columns():
+            exclude_cols.append(f"{colname}_logged")
+
+        exclude_cols += [
+            'total_records_mean_logged',
+            'total_SI_PI_vouchers_mean_logged',
+        ]
+
+        # Select relevant predictor columns based on naming patterns
+        package_cols = [
+            col for col in predictor_cols_superset if col.lower().startswith("package")]
+        company_type_cols = [
+            col for col in predictor_cols_superset if col.lower().startswith("company_type_")]
+        tol_1_eng_cols = [
+            col for col in predictor_cols_superset if col.startswith("tol_1_eng_")]
+        tol_2_eng_cols = [
+            col for col in predictor_cols_superset if col.lower().startswith("tol_2_eng_")]
+        _class_cols = [
+            col for col in predictor_cols_superset if col.lower().endswith("_class")]
+        logged_cols = [f"{col}_logged" for col in self.to_log_transform_columns(
+        ) if col != self.endog_glm]
+        add_usage_cols = [
+            col for col in predictor_cols_superset if col.lower() in self.addon_usage_columns]
+
+        # Select columns to include in the model
+        include_cols = package_cols + company_type_cols + tol_1_eng_cols + \
+            _class_cols + logged_cols + add_usage_cols
+        
+        self.exog_glm = [
+            col for col in include_cols if col not in exclude_cols
+        ]
+
+        # Exclude highly correlated variables
+        exclude_correlated_cols = self.calculate_and_exclude_highly_correlated_vars_from_predictors(
+            self.log_transformed_predictors_and_outcome_df[self.exog_glm].corr(), threshold=0.7
+        )
+        exclude_cols += exclude_correlated_cols
+        self.exog_glm = [
+            col for col in self.exog_glm if col not in exclude_cols
+        ]
+
+        self.logger.info(
+            f"Final number of exogenous variables selected for LASSO: {len(self.exog_glm)}")
+
+        # Prepare DataFrames
+        exog_glm_df = self.log_transformed_predictors_and_outcome_df[
+            self.exog_glm].replace(
+                [float('inf'), -float('inf')], float('nan')
+        )
+        
+        # Add discounts offered
+        self.discounts_offered = pd.DataFrame(
+            self.sum_discount_columns(self.preprocessor.customer_data), columns=[self.discount_column_name]
+        )
+        exog_glm_df = pd.concat(
+            [exog_glm_df, self.discounts_offered], axis=1
+        )
+
+        endog_glm_df = self.log_transformed_predictors_and_outcome_df[
+            self.endog_glm].replace(
+                [float('inf'), -float('inf')], float('nan')
+        )
+
+        mod_dsn = pd.concat(
+            [exog_glm_df, endog_glm_df], axis=1
+        ).dropna()
+
+        # Update discounts_offered to match dropped rows
+        self.discounts_offered = mod_dsn[[self.discount_column_name]]
+
+        # Fit LASSO model
+        # We use fit_regularized with L1_wt=1.0 for Lasso
+        # alpha is the penalty weight. 
+        self.logger.info("Fitting LASSO model...")
+        
+        # standardize self.endog_glm for lasso
+        self.endog_glm = mod_dsn.loc[:, self.endog_glm].values
+        self.endog_glm = StandardScaler().fit_transform(self.endog_glm)
+
+        # do not standardize self.exog_glm for lasso as outcome variable is never standardized
+        self.exog_glm = mod_dsn.loc[:, self.exog_glm].values
+        
+        lasso_model = sm.OLS(
+            endog=self.endog_glm,
+            exog=self.exog_glm, 
+        )
+        
+        lasso_results = lasso_model.fit_regularized(method='elastic_net', alpha=0.1, L1_wt=1.0)
+        self.logger.info("LASSO model fitting completed.")
+        
+        # RegularizedResults doesn't have a summary() method.
+        # We can log the params.
+        self.logger.info("LASSO model parameters:")
+        self.logger.info(lasso_results.params)
+        
+        # Filter for non-zero coefficients
+        non_zero_params = lasso_results.params[lasso_results.params != 0]
+        self.logger.info(f"Non-zero parameters: {non_zero_params}")
+        
+        self.final_lasso_results = lasso_results
+        self.mod_dsn = mod_dsn
+        
+
     def reverse_ordinal_variables_and_category(self) -> Dict[str, Dict[int, str]]:
         """
         Reverses the ordinal encoding mappings for ordinal predictor variables.
@@ -815,6 +1012,8 @@ class ModelTrain(PrepareInDatForModeling, PreProcessor):
         plt.clf() # clear the current figure
         plt.close() # close the figure window
 
+
+
 if __name__ == "__main__":
     import traceback
     try:
@@ -836,7 +1035,19 @@ if __name__ == "__main__":
         )
         logger.info("Undummification of tol_1_eng labels completed.")
 
+        logger.info("\n\n")
+        logger.info("Fitting LASSO model...")
+        logger.info("\n\n")
+        model_trainer.setup_LASSO()
+        model_trainer.model_diagnostics(
+            model_trainer.mod_dsn,
+            model_trainer.final_lasso_results
+        )
+        logger.info("LASSO model diagnostics completed.")
+        logger.info("\n\n")
+
     except Exception as e:
+        logger.error(f"Error in main: {e}")
         traceback.print_exc()
         sys.exit(1)
 
