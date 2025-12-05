@@ -1091,6 +1091,23 @@ class ModelTrain(PrepareInDatForModeling, PreProcessor):
         # Basic OLS with CV
         self.setup_OLS_with_CV(cv_folds=cv_folds)
 
+        # check if self has attribute final_ols_cv_predictions
+        if not hasattr(self, 'final_ols_cv_predictions'):
+            self.logger.error("final_ols_cv_predictions attribute not found. Please run setup_OLS_with_CV first.")
+            return
+
+        # make a 'Predicted' column in self.mod_dsn after checking 
+        # for shape alignment between mod_dsn and self.final_ols_cv_predictions
+        if self.mod_dsn.shape[0] == self.final_ols_cv_predictions.shape[0]:
+            self.mod_dsn['Predicted'] = self.final_ols_cv_predictions
+        else:
+            self.logger.error(
+                "Shape mismatch between mod_dsn and final_ols_cv_predictions. Please run setup_OLS_with_CV first."
+                )
+            raise ValueError(
+                "Shape mismatch between mod_dsn and final_ols_cv_predictions. Please run setup_OLS_with_CV first."
+                )
+
         # Additional diagnostics
         self._check_multicollinearity()
         self._check_homoscedasticity()
@@ -1100,74 +1117,73 @@ class ModelTrain(PrepareInDatForModeling, PreProcessor):
         # Performance summary
         self._generate_ols_performance_report()
 
-        # check for multicollinearity
-        # check for multicollinearity
-        def _check_multicollinearity(self):
-            """Check for multicollinearity using Variance Inflation Factor (VIF)."""
-            self.logger.info("\nMULTICOLLINEARITY CHECK")
-            self._calculate_vif()
+    # check for multicollinearity
+    def _check_multicollinearity(self):
+        """Check for multicollinearity using Variance Inflation Factor (VIF)."""
+        self.logger.info("\nMULTICOLLINEARITY CHECK")
+        self._calculate_vif()
 
-        # check for homoscedasticity
-        def _check_homoscedasticity(self):
-            """Check for homoscedasticity using residual plots."""
-            self.logger.info("\nHOMOSCEDASTICITY CHECK")
-            self.scatter_resid_with_predictors(
-                self.mod_dsn,
-                'Predicted',
-                self.final_ols_results,
-                self.final_ols_results.resid,
-                model_type="OLS"
-            )
+    # check for homoscedasticity
+    def _check_homoscedasticity(self):
+        """Check for homoscedasticity using residual plots."""
+        self.logger.info("\nHOMOSCEDASTICITY CHECK")
+        self.scatter_resid_with_predictors(
+            self.mod_dsn,
+            'Predicted',
+            self.final_ols_results,
+            self.final_ols_results.resid,
+            model_type="OLS"
+        )
 
-        # check for normality
-        def _check_normality(self):
-            """Check for normality using residual plots."""
-            self.logger.info("\nNORMALITY CHECK")
-            self.scatter_resid_with_predictors(
-                self.mod_dsn,
-                'Predicted',
-                self.final_ols_results,
-                self.final_ols_results.resid,
-                model_type="OLS"
-            )
+    # check for normality
+    def _check_normality(self):
+        """Check for normality using residual plots."""
+        self.logger.info("\nNORMALITY CHECK")
+        self.scatter_resid_with_predictors(
+            self.mod_dsn,
+            'Predicted',
+            self.final_ols_results,
+            self.final_ols_results.resid,
+            model_type="OLS"
+        )
 
-        def _calculate_vif(self):
-            """Calculate Variance Inflation Factor for multicollinearity check."""
-            from statsmodels.stats.outliers_influence import variance_inflation_factor
+    def _calculate_vif(self):
+        """Calculate Variance Inflation Factor for multicollinearity check."""
+        from statsmodels.stats.outliers_influence import variance_inflation_factor
 
-            X = self.mod_dsn.loc[:, self.exog_glm]
+        X: pd.DataFrame = self.mod_dsn.loc[:, self.exog_glm]
 
-            vif_data = pd.DataFrame()
-            vif_data["Feature"] = X.columns
-            vif_data["VIF"] = [variance_inflation_factor(X.values, i) for i in range(X.shape[1])]
+        vif_data: pd.DataFrame = pd.DataFrame()
+        vif_data["Feature"]: pd.Series = X.columns
+        vif_data["VIF"]: pd.Series = [variance_inflation_factor(X.values, i) for i in range(X.shape[1])]
 
-            self.vif_scores = vif_data.sort_values('VIF', ascending=False)
+        self.vif_scores: pd.DataFrame = vif_data.sort_values('VIF', ascending=False)
 
-            self.logger.info("\nVARIANCE INFLATION FACTORS (VIF)")
-            high_vif = self.vif_scores[self.vif_scores['VIF'] > 10]
-            if not high_vif.empty:
-                self.logger.warning("High VIF detected (potential multicollinearity):")
-                for _, row in high_vif.iterrows():
-                    self.logger.warning(f"  {row['Feature']}: VIF = {row['VIF']:.2f}")
+        self.logger.info("\nVARIANCE INFLATION FACTORS (VIF)")
+        high_vif: pd.DataFrame = self.vif_scores[self.vif_scores['VIF'] > 10]
+        if not high_vif.empty:
+            self.logger.warning("High VIF detected (potential multicollinearity):")
+            for _, row in high_vif.iterrows():
+                self.logger.warning(f"  {row['Feature']}: VIF = {row['VIF']:.2f}")
 
-        def _generate_ols_performance_report(self):
-            """Generate comprehensive performance report."""
-            self.logger.info("\n" + "=" * 60)
-            self.logger.info("COMPREHENSIVE OLS PERFORMANCE REPORT")
-            self.logger.info("=" * 60)
+    def _generate_ols_performance_report(self):
+        """Generate comprehensive performance report."""
+        self.logger.info("\n" + "=" * 60)
+        self.logger.info("COMPREHENSIVE OLS PERFORMANCE REPORT")
+        self.logger.info("=" * 60)
 
-            if hasattr(self, 'ols_cv_mean'):
-                self.logger.info(f"Cross-Validation R²: {self.ols_cv_mean:.4f} (±{self.ols_cv_std * 2:.4f})")
+        if hasattr(self, 'ols_cv_mean'):
+            self.logger.info(f"Cross-Validation R²: {self.ols_cv_mean:.4f} (±{self.ols_cv_std * 2:.4f})")
 
-            if hasattr(self, 'final_ols_results'):
-                self.logger.info(f"Training R²: {self.final_ols_results.rsquared:.4f}")
-                self.logger.info(f"Adjusted R²: {self.final_ols_results.rsquared_adj:.4f}")
-                self.logger.info(f"F-statistic: {self.final_ols_results.fvalue:.2f}")
-                self.logger.info(f"F-statistic p-value: {self.final_ols_results.f_pvalue:.4f}")
+        if hasattr(self, 'final_ols_results'):
+            self.logger.info(f"Training R²: {self.final_ols_results.rsquared:.4f}")
+            self.logger.info(f"Adjusted R²: {self.final_ols_results.rsquared_adj:.4f}")
+            self.logger.info(f"F-statistic: {self.final_ols_results.fvalue:.2f}")
+            self.logger.info(f"F-statistic p-value: {self.final_ols_results.f_pvalue:.4f}")
 
-            if hasattr(self, 'ols_train_test_gap'):
-                status = "⚠️ POTENTIAL OVERFITTING" if self.ols_train_test_gap > 0.1 else "✓ GOOD GENERALIZATION"
-                self.logger.info(f"Train-CV Gap: {self.ols_train_test_gap:.4f} {status}")
+        if hasattr(self, 'ols_train_test_gap'):
+            status = "⚠️ POTENTIAL OVERFITTING" if self.ols_train_test_gap > 0.1 else "✓ GOOD GENERALIZATION"
+            self.logger.info(f"Train-CV Gap: {self.ols_train_test_gap:.4f} {status}")
 
 if __name__ == "__main__":
     import traceback
@@ -1182,8 +1198,27 @@ if __name__ == "__main__":
             model_trainer.final_ols_results,
             model_type="OLS"
         )
+
+        # exclude top two features with highest VIF and re-run final model  
+        top_two_features: pd.DataFrame = model_trainer.vif_scores.head(2)
+        model_trainer.logger.info("\nTOP TWO FEATURES")
+        model_trainer.logger.info(top_two_features)
+
+        # remove top two features from model_trainer.exog_glm and re-run final model
+        model_trainer.exog_glm: list = [col for col in model_trainer.exog_glm if col not in top_two_features.index]
+        model_trainer.setup_OLS_with_CV()
+        model_trainer.ols_comprehensive_diagnostics()
+        model_trainer.model_diagnostics(
+            model_trainer.mod_dsn,
+            model_trainer.final_ols_results,
+            model_type="OLS"
+        )
+
+        # log final model summary
+        model_trainer.logger.info(model_trainer.final_ols_results.summary())
+
         
     except Exception as e:
-        logger.error(f"Error in main: {e}")
+        model_trainer.logger.error(f"Error in main: {e}")
         traceback.print_exc()
         sys.exit(1)
