@@ -132,6 +132,9 @@ from pathlib import Path
 import shutil
 import sys
 from datetime import datetime
+import concurrent.futures  # type: ignore
+from functools import partial
+
 import pandas as pd # type: ignore
 from matplotlib import pyplot as plt # type: ignore
 from pprint import pprint
@@ -210,9 +213,10 @@ class PreProcessor():
         self.plot_dir = plot_dir
 
         # Carrying out missing reports and visualizations
-        self.missing_reports()
-        self.jointplot_outcome_vs_predictors()
-        self.jointplot_outcome_vs_predictors_by_package()
+        # self.missing_reports()
+        # self.jointplot_outcome_vs_predictors()
+        # self.jointplot_outcome_vs_predictors_by_package()
+        # self.parallel_process_jointplot_outcome_vs_predictors_by_package()
 
     def string_and_function(self, str: str, func: Callable) -> None:
         """_summary_
@@ -418,6 +422,106 @@ class PreProcessor():
                     f"Saved joint plot for predictor '{predictor_col}': {save_path}")
 
         return None
+
+    def parallel_process_jointplot_outcome_vs_predictors_by_package(self) -> None:
+        """Generate joint plots of outcome vs predictors for each package in parallel.
+        This method creates joint plots (scatter plots with marginal distributions) showing
+        the relationship between the outcome variable and each numeric predictor variable,
+        grouped by package type. It uses ThreadPoolExecutor for parallel processing to
+        improve performance when generating multiple plots.
+        The method performs the following steps:
+        1. Validates that the package variable exists in the dataset
+        2. Creates a subdirectory for storing joint plots by package
+        3. Identifies all numeric predictor columns
+        4. For each package and predictor combination, prepares plotting tasks
+        5. Executes plotting tasks in parallel using a thread pool
+        6. Reports success or failure for each plot generation
+        Returns:
+            None: Plots are saved to disk in the 'joint_plots_by_package' subdirectory.
+                  Returns early if package variable is not found in the data.
+        Side Effects:
+            - Creates 'joint_plots_by_package' subdirectory in the plot directory
+            - Saves multiple joint plot image files to disk
+            - Prints progress messages and error reports to console
+        Notes:
+            - Only processes numeric columns for both outcome and predictor variables
+            - Uses up to 8 worker threads or the number of tasks, whichever is smaller
+            - Thread pool is appropriate as plotting operations are I/O-bound (disk writes)
+            - Each plot task is handled by the _create_single_jointplot helper method
+        
+        """
+        if self.package_var not in self.customer_data.columns:
+            print(f"Package variable '{self.package_var}' not found in data. Skipping jointplot by package.")
+            return None
+
+        predictor_cols = self.get_predictor_columns()
+        joint_plot_dir = os.path.join(self.plot_dir, "joint_plots_by_package")
+        os.makedirs(joint_plot_dir, exist_ok=True)
+
+        # Create all plot tasks
+        plot_tasks = []
+        for one_package in self.unique_packages:
+            data_subset = self.customer_data[self.customer_data[self.package_var] == one_package]
+            
+            for predictor_col in predictor_cols:
+                if (pd.api.types.is_numeric_dtype(data_subset[self.outcome_col]) and 
+                    pd.api.types.is_numeric_dtype(data_subset[predictor_col])):
+                    
+                    plot_tasks.append({
+                        'data_subset': data_subset,
+                        'outcome_col': self.outcome_col,
+                        'predictor_col': predictor_col,
+                        'package': one_package,
+                        'joint_plot_dir': joint_plot_dir
+                    })
+
+        # Process in parallel
+        with concurrent.futures.ThreadPoolExecutor(max_workers=min(8, len(plot_tasks))) as executor:
+            # Submit all tasks
+            future_to_task = {
+                executor.submit(self._create_single_jointplot, **task): task 
+                for task in plot_tasks
+            }
+            
+            # Process results as they complete
+            for future in concurrent.futures.as_completed(future_to_task):
+                task = future_to_task[future]
+                try:
+                    result = future.result()
+                    if result:
+                        print(f"✓ Saved: {result}")
+                except Exception as e:
+                    print(f"✗ Failed for package {task['package']}, predictor {task['predictor_col']}: {e}")
+
+
+    def _create_single_jointplot(self, data_subset, outcome_col, predictor_col, package, joint_plot_dir):
+        """
+        Create a single joint plot - designed for parallel execution.
+        """
+        try:
+            # Create the plot
+            g = sns.jointplot(
+                x=data_subset[predictor_col],
+                y=data_subset[outcome_col],
+                kind='scatter',
+                height=7
+            )
+            
+            plt.suptitle(f'Joint Plot: {outcome_col} vs {predictor_col} (Package: {package})')
+            
+            # Save the plot
+            save_path = os.path.join(
+                joint_plot_dir, 
+                f"jointplot_{outcome_col}_vs_{predictor_col}_package_{package}.png"
+            )
+            plt.savefig(save_path, dpi=150, bbox_inches='tight')
+            plt.close('all')
+            
+            return save_path
+            
+        except Exception as e:
+            raise Exception(f"Error creating plot for {predictor_col} in package {package}: {e}")
+
 
     def jointplot_outcome_vs_predictors_by_package(self) -> None:
         """

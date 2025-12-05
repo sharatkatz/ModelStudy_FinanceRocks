@@ -203,3 +203,6 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# virtual env created by user
+case_study/
