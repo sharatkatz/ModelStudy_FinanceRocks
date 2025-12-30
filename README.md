@@ -1,18 +1,6 @@
 # ModelTrain_FR
 
-![PyPI version](https://img.shields.io/pypi/v/ModelStudy_FR.svg)
-[![Documentation Status](https://readthedocs.org/projects/ModelStudy_FR/badge/?version=latest)](https://ModelStudy_FR.readthedocs.io/en/latest/?version=latest)
-
 Codes required to preprocess the input data and execute a modeling pipeline on the top of it.
-
-* PyPI package: https://pypi.org/project/ModelStudy_FR/
-* Free software: MIT License
-* Documentation: https://ModelStudy_FR.readthedocs.io.
-
-## Features
-
-* TODO
-
 
 ## Flow:
 1. Import necessary modules and classes.
@@ -27,54 +15,54 @@ as the outcome variable.
 8. The package variable is "package".
 9. Predictor variables include various revenue components and customer attributes.
 10. All the meta information is classified under four types of variables:
-    - Customer/Company Profile: 
-        ["id", 
-        "package", 
-        "accounting_office_id", 
-        "company_type_label", 
-        "tol_1_eng", 
-        "tol_2_eng", 
-        "headcount_class", 
-        "revenue_class", 
-        "ao_revenue_class", 
+    - Customer/Company Profile:
+        ["id",
+        "package",
+        "accounting_office_id",
+        "company_type_label",
+        "tol_1_eng",
+        "tol_2_eng",
+        "headcount_class",
+        "revenue_class",
+        "ao_revenue_class",
         "ao_headcount_class"]
 
-    - Usage/Activity Metrics (over 12 months): 
-        ["total_records_months_used", 
-         "total_records_mean", 
-         "total_records_sum", 
-         "total_SI_PI_vouchers_months_used", 
-         "total_SI_PI_vouchers_mean", 
-         "total_SI_PI_vouchers_sum", 
-         "record_count_salary_months_used", 
+    - Usage/Activity Metrics (over 12 months):
+        ["total_records_months_used",
+         "total_records_mean",
+         "total_records_sum",
+         "total_SI_PI_vouchers_months_used",
+         "total_SI_PI_vouchers_mean",
+         "total_SI_PI_vouchers_sum",
+         "record_count_salary_months_used",
          "record_count_salary_mean"]
 
-    - Add-on/Feature Usage (Binary/Mobile): 
-        ["add_api", 
-         "add_bank_account", 
-         "add_contract_invoicing", 
-         "add_cust_invoice", 
-         "add_ext_dimensions", 
-         "add_inventory", 
-         "add_junior", 
-         "add_mobile", 
-         "add_sftp", 
+    - Add-on/Feature Usage (Binary/Mobile):
+        ["add_api",
+         "add_bank_account",
+         "add_contract_invoicing",
+         "add_cust_invoice",
+         "add_ext_dimensions",
+         "add_inventory",
+         "add_junior",
+         "add_mobile",
+         "add_sftp",
          "mobile_user_count"]
 
-    - Revenue Metrics (Before and After Discounts): 
-        ["line_total_vat_0_rev_package", 
-         "line_total_vat_0_rev_ex_vouchers", 
-         "line_total_vat_0_rev_ex_employees", 
-         "line_total_vat_0_rev_integrations", 
-         "line_total_vat_0_rev_mobile", 
-         "line_total_vat_0_rev_addon", 
-         "line_total_vat_0_rev_trx", 
-         "line_total_discounted_vat_0_rev_package", 
-         "line_total_discounted_vat_0_rev_ex_vouchers", 
-         "line_total_discounted_vat_0_rev_ex_employees", 
-         "line_total_discounted_vat_0_rev_integrations", 
-         "line_total_discounted_vat_0_rev_mobile", 
-         "line_total_discounted_vat_0_rev_addon", 
+    - Revenue Metrics (Before and After Discounts):
+        ["line_total_vat_0_rev_package",
+         "line_total_vat_0_rev_ex_vouchers",
+         "line_total_vat_0_rev_ex_employees",
+         "line_total_vat_0_rev_integrations",
+         "line_total_vat_0_rev_mobile",
+         "line_total_vat_0_rev_addon",
+         "line_total_vat_0_rev_trx",
+         "line_total_discounted_vat_0_rev_package",
+         "line_total_discounted_vat_0_rev_ex_vouchers",
+         "line_total_discounted_vat_0_rev_ex_employees",
+         "line_total_discounted_vat_0_rev_integrations",
+         "line_total_discounted_vat_0_rev_mobile",
+         "line_total_discounted_vat_0_rev_addon",
          "line_total_discounted_vat_0_rev_trx"]
 
  11. All the columns and their data descriptors is provided as:
@@ -121,7 +109,7 @@ as the outcome variable.
 | line_total_discounted_vat_0_rev_employees    | revenue from exceeded payroll fees (after discounts)                                                                           |
 | line_total_discounted_vat_0_rev_integrations | revenue from integrations (after discounts)                                                                                    |
 | line_total_discounted_vat_0_rev_mobile       | revenue from mobile (after discounts)                                                                                          |
-| line_total_discounted_vat_0_rev_addon        | revenue from other add-ons (after discounts)                                                                                   | 
+| line_total_discounted_vat_0_rev_addon        | revenue from other add-ons (after discounts)                                                                                   |
 
 
 
@@ -240,7 +228,7 @@ ao_headcount_class / ao_revenue_class: Captures the size and presumably the soph
 | tol_2_eng_water_collection__treatment_and_supply | tol_2_RENAMED_72 |
 | tol_2_eng_water_transport | tol_2_RENAMED_73 |
 | tol_2_eng_wholesale_and_retail_trade_and_repair_of_motor_vehicles_and_motorcycles | tol_2_RENAMED_74 |
-| tol_2_eng_wholesale_trade__except_of_motor_vehicles_and_motorcycles | tol_2_RENAMED_75 | 
+| tol_2_eng_wholesale_trade__except_of_motor_vehicles_and_motorcycles | tol_2_RENAMED_75 |
 
 1. Preferred Model: Log-Linear/Log-Log Form (Elasticity-Focused)This form is better for understanding the percentage impact of a change in usage (the independent variables) on Total Revenue (the dependent variable).
 Model Form:$$\ln(Y) = \beta_0 + \sum_{j=1}^{K} \beta_j X_j + \sum_{k=1}^{P-1} \gamma_k D_k + \epsilon$$
@@ -254,7 +242,7 @@ Model Form:$$Y = \beta_0 + \sum_{j=1}^{K} \beta_j X_j + \sum_{k=1}^{P-1} \gamma_
 Variable Definitions:
  - $Y$ is now the Total Revenue (in its raw, non-log-transformed Euro value). The independent variables $X_j$ and $D_k$ remain the same.Interpretation of Coefficients:
  - For $X_j$ (Continuous): A one-unit increase in $X_j$ leads to a $\beta_j$ (in €) change in $Y$ (Total Revenue).For $D_k$ (Dummy): Being in category $D_k$ leads to a $\gamma_k$ (in €) difference in $Y$ compared to the baseline category.
- 
+
 Recommendation: Start with the Log-Linear/Log-Log Model (Form 1) as it naturally handles the non-linear relationship often seen between usage/size and revenue, and directly provides the elasticity measures you are interested in.
 
 ---------------------------------------------------------------------------------------
@@ -268,3 +256,198 @@ Why the Gamma Distribution?The Gamma distribution (available in statsmodels.genm
 - Variance Relationship: The Gamma distribution implies that the variance of the residuals increases as the mean predicted revenue increases ($\text{Var}[Y] \propto \mu^2$). This is a common characteristic of revenue data: high-value customers tend to have much larger and more volatile errors than low-value customers.The Link Function
 
 When using the Gamma family, the typical link function used is the log link (link=sm.families.links.log()). This maintains the connection to your earlier Log-Linear approach:$$\ln(\mu_i) = \beta_0 + \sum \beta_j X_j$$Here, $\mu_i$ is the mean expected revenue for customer $i$. Using the log link ensures that the predicted revenue ($\mu_i$) will always be positive, which is consistent with the nature of revenue.
+
+# Ridge and Lasso Regression for Log-Linear and Log-Log Models (alternate to multiple linear regression)
+
+## Overview
+
+Ridge and Lasso regression are regularization techniques that can significantly enhance log-linear and log-log (elasticity-focused) models, particularly when dealing with multicollinearity, high-dimensional data, or when feature selection is desired. These methods serve as powerful alternatives to standard multiple linear regression (MLR) by adding penalty terms to the loss function.
+
+## Model Specifications
+
+### Log-Linear Model
+```
+log(Y) = β₀ + β₁X₁ + β₂X₂ + ... + βₚXₚ + ε
+```
+- **Interpretation**: A one-unit change in Xᵢ leads to a (βᵢ × 100)% change in Y
+- **Use case**: When the dependent variable grows exponentially with linear changes in predictors
+
+### Log-Log Model (Elasticity Model)
+```
+log(Y) = β₀ + β₁log(X₁) + β₂log(X₂) + ... + βₚlog(Xₚ) + ε
+```
+- **Interpretation**: βᵢ represents the elasticity - a 1% change in Xᵢ leads to a βᵢ% change in Y
+- **Use case**: Ideal for price elasticity, demand analysis, and economic modeling
+
+## Ridge Regression (L2 Regularization)
+
+### Mathematical Formulation
+Ridge regression minimizes:
+```
+Loss = RSS + λ Σ(βⱼ²)
+```
+where:
+- RSS = Residual Sum of Squares
+- λ = regularization parameter (tuning parameter)
+- The penalty term shrinks coefficients toward zero but never exactly to zero
+
+### How It Helps Log-Linear/Log-Log Models
+
+1. **Multicollinearity Mitigation**: When log-transformed variables are correlated (common in elasticity models), Ridge stabilizes coefficient estimates
+2. **Bias-Variance Tradeoff**: Introduces small bias to substantially reduce variance, improving prediction accuracy
+3. **Coefficient Stability**: Produces more reliable elasticity estimates when predictors are correlated
+4. **All Variables Retained**: Keeps all features in the model, useful when all elasticities are theoretically important
+
+### Pros
+- ✅ **Handles multicollinearity effectively** - crucial for correlated log-transformed variables
+- ✅ **Improves prediction accuracy** when many correlated predictors exist
+- ✅ **Computationally efficient** - closed-form solution available
+- ✅ **Stable coefficient estimates** - reduces variance in elasticity estimates
+- ✅ **Retains all features** - maintains interpretability of all elasticities
+- ✅ **Works well with small sample sizes** relative to number of predictors
+
+### Cons
+- ❌ **No feature selection** - all variables remain in the model (can be noisy)
+- ❌ **Less interpretable** when many weak predictors are present
+- ❌ **Requires hyperparameter tuning** (λ) via cross-validation
+- ❌ **Biased estimates** - coefficients are shrunk, affecting elasticity interpretation
+- ❌ **Scaling sensitive** - requires standardization of predictors
+
+## Lasso Regression (L1 Regularization)
+
+### Mathematical Formulation
+Lasso regression minimizes:
+```
+Loss = RSS + λ Σ|βⱼ|
+```
+where:
+- The L1 penalty can shrink coefficients exactly to zero
+- Performs automatic feature selection
+
+### How It Helps Log-Linear/Log-Log Models
+
+1. **Automatic Feature Selection**: Identifies which elasticities are truly non-zero, simplifying the model
+2. **Sparse Solutions**: Creates interpretable models by eliminating irrelevant predictors
+3. **Handles High Dimensionality**: Effective when you have many potential predictors but only a few are truly important
+4. **Reduces Overfitting**: Particularly valuable in elasticity models with many candidate variables
+
+### Pros
+- ✅ **Automatic feature selection** - identifies most important elasticities
+- ✅ **Produces sparse models** - easier interpretation with fewer variables
+- ✅ **Handles high-dimensional data** - works when p > n (more predictors than observations)
+- ✅ **Reduces overfitting** through both regularization and selection
+- ✅ **Identifies key drivers** - reveals which factors truly drive elasticity
+- ✅ **Improves model parsimony** - simpler, more generalizable models
+
+### Cons
+- ❌ **Arbitrary selection among correlated variables** - may randomly pick one from a correlated group
+- ❌ **Unstable with high multicollinearity** - selected variables can change with small data changes
+- ❌ **Biased estimates** for selected coefficients
+- ❌ **No closed-form solution** - requires iterative optimization
+- ❌ **May exclude important variables** if they're correlated with selected ones
+- ❌ **Requires hyperparameter tuning** (λ) via cross-validation
+
+## Elastic Net: Best of Both Worlds
+
+Combines Ridge and Lasso penalties:
+```
+Loss = RSS + λ₁ Σ|βⱼ| + λ₂ Σ(βⱼ²)
+```
+
+### Pros
+- ✅ **Feature selection with stability** - handles correlated variables better than Lasso
+- ✅ **Can select groups of correlated variables** - useful when multiple elasticities move together
+- ✅ **More robust** than pure Lasso in presence of multicollinearity
+
+### Cons
+- ❌ **Two hyperparameters to tune** (λ₁ and λ₂) - more complex cross-validation
+- ❌ **Increased computational cost**
+
+## Comparison with Multiple Linear Regression (MLR)
+
+| Aspect | MLR | Ridge | Lasso | Elastic Net |
+|--------|-----|-------|-------|-------------|
+| **Multicollinearity** | Poor | Excellent | Moderate | Excellent |
+| **Feature Selection** | Manual | None | Automatic | Automatic |
+| **Interpretability** | High | Moderate | High (sparse) | Moderate |
+| **Prediction Accuracy** | Lower (high variance) | Higher | Higher | Highest |
+| **Bias** | Unbiased | Biased | Biased | Biased |
+| **Variance** | High | Low | Low | Low |
+| **Overfitting Risk** | High | Low | Low | Lowest |
+| **Computational Cost** | Low | Low | Moderate | Moderate |
+
+## When to Use Each Method
+
+### Use **Ridge Regression** when:
+- All predictors are theoretically important (all elasticities matter)
+- Severe multicollinearity exists among log-transformed variables
+- Primary goal is prediction accuracy over interpretability
+- You have domain knowledge that all variables should be retained
+
+### Use **Lasso Regression** when:
+- You suspect only a few predictors truly matter (sparse elasticity model)
+- You need automatic feature selection
+- Model interpretability and simplicity are priorities
+- You have many candidate predictors but limited theory
+
+### Use **Elastic Net** when:
+- You have groups of correlated predictors
+- You want both feature selection and handling of multicollinearity
+- You're unsure whether Ridge or Lasso is more appropriate
+
+### Use **Standard MLR** when:
+- Sample size is large relative to number of predictors
+- Predictors are uncorrelated
+- Unbiased coefficient estimates are critical
+- You have strong theoretical justification for all included variables
+
+## Practical Implementation Considerations
+
+### 1. Data Preprocessing
+```python
+# For log-linear models
+y_log = np.log(y)
+X_scaled = StandardScaler().fit_transform(X)
+
+# For log-log models
+y_log = np.log(y)
+X_log = np.log(X)
+X_log_scaled = StandardScaler().fit_transform(X_log)
+```
+
+### 2. Hyperparameter Tuning
+```python
+from sklearn.linear_model import RidgeCV, LassoCV, ElasticNetCV
+from sklearn.model_selection import cross_val_score
+
+# Ridge with cross-validation
+alphas = np.logspace(-6, 6, 100)
+ridge_cv = RidgeCV(alphas=alphas, cv=5)
+ridge_cv.fit(X_scaled, y_log)
+
+# Lasso with cross-validation
+lasso_cv = LassoCV(alphas=alphas, cv=5, max_iter=10000)
+lasso_cv.fit(X_scaled, y_log)
+```
+
+### 3. Coefficient Interpretation
+- **Ridge**: Elasticities are shrunk but all remain; interpret magnitude cautiously
+- **Lasso**: Zero coefficients indicate negligible elasticity; non-zero coefficients are the key drivers
+- **Important**: Both methods produce biased estimates, so focus on relative magnitudes and prediction performance
+
+## Key Takeaways
+
+1. **Ridge and Lasso are not replacements for MLR** - they're enhancements for specific scenarios
+2. **Regularization introduces bias** - accept this tradeoff for reduced variance and better predictions
+3. **Cross-validation is essential** - proper λ selection is critical for performance
+4. **Scaling is mandatory** - always standardize features before applying regularization
+5. **Interpretation changes** - elasticity estimates are shrunk; focus on relative importance
+6. **Model validation** - always validate on held-out data to assess true predictive performance
+
+## References and Further Reading
+
+- Hastie, T., Tibshirani, R., & Friedman, J. (2009). *The Elements of Statistical Learning*
+- James, G., Witten, D., Hastie, T., & Tibshirani, R. (2013). *An Introduction to Statistical Learning*
+- Zou, H., & Hastie, T. (2005). "Regularization and variable selection via the elastic net"
+
+
