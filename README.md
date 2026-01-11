@@ -10,8 +10,9 @@ Codes required to preprocess the input data and execute a modeling pipeline on t
     script.
 5. When run as a standalone script, it initializes the plot directory.
 6. Input files are expected to be located in a specific directory structure.
-7. We model Total Revenue (Sum of all revenue components): $Y = \text{Total Discounted Revenue} = \sum (\text{All } line\_total\_discounted\_vat\_0\_rev\_\text{...})$$
-as the outcome variable.
+7. We model Total Revenue (Sum of all revenue components): 
+   $$Y = \text{Total Discounted Revenue} = \sum (\text{All } line\_total\_discounted\_vat\_0\_rev\_\text{...})$$
+   as the outcome variable.
 8. The package variable is "package".
 9. Predictor variables include various revenue components and customer attributes.
 10. All the meta information is classified under four types of variables:
@@ -65,7 +66,7 @@ as the outcome variable.
          "line_total_discounted_vat_0_rev_addon",
          "line_total_discounted_vat_0_rev_trx"]
 
- 11. All the columns and their data descriptors is provided as:
+11. All the columns and their data descriptors is provided as:
 
 | COLUMNS                                      | DESCRIPTION                                                                                                                    |
 | -------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
@@ -86,10 +87,8 @@ as the outcome variable.
 | total_SI_PI_vouchers_sum                     | total number of sales and purchase invoices used in 12 months                                                                  |
 | record_count_salary_months_used              | number of months the customer has used payroll functionality during the past 12 months                                         |
 | record_count_salary_mean                     | average number of employees on payroll during past 12 months                                                                   |
-| add_api                                      | 1. Indicates if the customer is using one of the add-on features such as api, credit search, bank account, consolidation, etc. |
-|                                              | 2. "add_api" and "add_sftp" denote integration usage                                       |                                   |
-|                                              | 3. "add_mobile" denotes the usage of the mobile app                                                                            |
-| add_stfp                                     |                                                                                                                                |
+| add_api                                      | Indicates if the customer is using one of the add-on features such as api, credit search, bank account, consolidation, etc. "add_api" and "add_sftp" denote integration usage. "add_mobile" denotes the usage of the mobile app |
+| add_sftp                                     | Integration usage via SFTP                                                                                                     |
 | add_bank_account                             |                                                                                                                                |
 | add_contract_invoicing                       |                                                                                                                                |
 | add_cust_invoice                             |                                                                                                                                |
@@ -230,18 +229,36 @@ ao_headcount_class / ao_revenue_class: Captures the size and presumably the soph
 | tol_2_eng_wholesale_and_retail_trade_and_repair_of_motor_vehicles_and_motorcycles | tol_2_RENAMED_74 |
 | tol_2_eng_wholesale_trade__except_of_motor_vehicles_and_motorcycles | tol_2_RENAMED_75 |
 
-1. Preferred Model: Log-Linear/Log-Log Form (Elasticity-Focused)This form is better for understanding the percentage impact of a change in usage (the independent variables) on Total Revenue (the dependent variable).
-Model Form:$$\ln(Y) = \beta_0 + \sum_{j=1}^{K} \beta_j X_j + \sum_{k=1}^{P-1} \gamma_k D_k + \epsilon$$
-Interpretation of Coefficients:
-    - For $X_j$ (Continuous/Level): A one-unit increase in $X_j$ leads to a $(\beta_j \times 100)\%$ change in $Y$ (Total Revenue).
-    - For $\ln(X_j)$ (Log-Log): A 1% increase in $X_j$ (e.g., vouchers used) leads to a $\beta_j\%$ change in $Y$ (Total Revenue). This $\beta_j$ is the elasticity.
-    - For $D_k$ (Dummy): Being in category $D_k$ (e.g., $\text{package\_7}$) leads to a $(e^{\gamma_k} - 1) \times 100\%$ change in $Y$ compared to the baseline category.
+## 1. Preferred Model: Log-Linear/Log-Log Form (Elasticity-Focused)
 
-2. Standard Model: Multiple Linear Regression (Absolute Change Focused)This simpler form predicts the absolute Euro change in revenue.
-Model Form:$$Y = \beta_0 + \sum_{j=1}^{K} \beta_j X_j + \sum_{k=1}^{P-1} \gamma_k D_k + \epsilon$$
-Variable Definitions:
- - $Y$ is now the Total Revenue (in its raw, non-log-transformed Euro value). The independent variables $X_j$ and $D_k$ remain the same.Interpretation of Coefficients:
- - For $X_j$ (Continuous): A one-unit increase in $X_j$ leads to a $\beta_j$ (in €) change in $Y$ (Total Revenue).For $D_k$ (Dummy): Being in category $D_k$ leads to a $\gamma_k$ (in €) difference in $Y$ compared to the baseline category.
+This form is better for understanding the percentage impact of a change in usage (the independent variables) on Total Revenue (the dependent variable).
+
+**Model Form:**
+
+$$\ln(Y) = \beta_0 + \sum_{j=1}^{K} \beta_j X_j + \sum_{k=1}^{P-1} \gamma_k D_k + \epsilon$$
+
+**Interpretation of Coefficients:**
+
+- For $X_j$ (Continuous/Level): A one-unit increase in $X_j$ leads to a $(\beta_j \times 100)\%$ change in $Y$ (Total Revenue).
+- For $\ln(X_j)$ (Log-Log): A 1% increase in $X_j$ (e.g., vouchers used) leads to a $\beta_j\%$ change in $Y$ (Total Revenue). This $\beta_j$ is the elasticity.
+- For $D_k$ (Dummy): Being in category $D_k$ (e.g., $\text{package\_7}$) leads to a $(e^{\gamma_k} - 1) \times 100\%$ change in $Y$ compared to the baseline category.
+
+## 2. Standard Model: Multiple Linear Regression (Absolute Change Focused)
+
+This simpler form predicts the absolute Euro change in revenue.
+
+**Model Form:**
+
+$$Y = \beta_0 + \sum_{j=1}^{K} \beta_j X_j + \sum_{k=1}^{P-1} \gamma_k D_k + \epsilon$$
+
+**Variable Definitions:**
+
+- $Y$ is now the Total Revenue (in its raw, non-log-transformed Euro value). The independent variables $X_j$ and $D_k$ remain the same.
+
+**Interpretation of Coefficients:**
+
+- For $X_j$ (Continuous): A one-unit increase in $X_j$ leads to a $\beta_j$ (in €) change in $Y$ (Total Revenue).
+- For $D_k$ (Dummy): Being in category $D_k$ leads to a $\gamma_k$ (in €) difference in $Y$ compared to the baseline category.
 
 Recommendation: Start with the Log-Linear/Log-Log Model (Form 1) as it naturally handles the non-linear relationship often seen between usage/size and revenue, and directly provides the elasticity measures you are interested in.
 
@@ -249,13 +266,23 @@ Recommendation: Start with the Log-Linear/Log-Log Model (Form 1) as it naturally
 Based on https://www.statsmodels.org/stable/glm.html:
 The most appropriate distribution family to consider for modeling your Total Revenue (if you were to use a Generalized Linear Model (GLM) instead of the Log-Log/OLS approach) is the Gamma distribution or, more comprehensively, the Tweedie distribution.
 Here is the reasoning based on the characteristics of your revenue data:
-🔬 Recommended Distribution Family: Gamma
-Why the Gamma Distribution?The Gamma distribution (available in statsmodels.genmod.families.family.Gamma) is the standard choice for modeling non-negative, continuous, and right-skewed variables, which perfectly describes financial data like customer revenue.
-- Non-Negativity: Revenue ($Y$) cannot be negative. The Gamma distribution is defined only for $Y > 0$.
-- Skewness: Revenue is typically heavily right-skewed (many customers with low revenue, a few outliers with extremely high revenue). The Gamma distribution is asymmetric and designed to handle this high skewness.
-- Variance Relationship: The Gamma distribution implies that the variance of the residuals increases as the mean predicted revenue increases ($\text{Var}[Y] \propto \mu^2$). This is a common characteristic of revenue data: high-value customers tend to have much larger and more volatile errors than low-value customers.The Link Function
+## 🔬 Recommended Distribution Family: Gamma
 
-When using the Gamma family, the typical link function used is the log link (link=sm.families.links.log()). This maintains the connection to your earlier Log-Linear approach:$$\ln(\mu_i) = \beta_0 + \sum \beta_j X_j$$Here, $\mu_i$ is the mean expected revenue for customer $i$. Using the log link ensures that the predicted revenue ($\mu_i$) will always be positive, which is consistent with the nature of revenue.
+### Why the Gamma Distribution?
+
+The Gamma distribution (available in `statsmodels.genmod.families.family.Gamma`) is the standard choice for modeling non-negative, continuous, and right-skewed variables, which perfectly describes financial data like customer revenue.
+
+- **Non-Negativity**: Revenue ($Y$) cannot be negative. The Gamma distribution is defined only for $Y > 0$.
+- **Skewness**: Revenue is typically heavily right-skewed (many customers with low revenue, a few outliers with extremely high revenue). The Gamma distribution is asymmetric and designed to handle this high skewness.
+- **Variance Relationship**: The Gamma distribution implies that the variance of the residuals increases as the mean predicted revenue increases ($\text{Var}[Y] \propto \mu^2$). This is a common characteristic of revenue data: high-value customers tend to have much larger and more volatile errors than low-value customers.
+
+### The Link Function
+
+When using the Gamma family, the typical link function used is the log link (`link=sm.families.links.log()`). This maintains the connection to your earlier Log-Linear approach:
+
+$$\ln(\mu_i) = \beta_0 + \sum \beta_j X_j$$
+
+Here, $\mu_i$ is the mean expected revenue for customer $i$. Using the log link ensures that the predicted revenue ($\mu_i$) will always be positive, which is consistent with the nature of revenue.
 
 # Ridge and Lasso Regression for Log-Linear and Log-Log Models (alternate to multiple linear regression)
 
