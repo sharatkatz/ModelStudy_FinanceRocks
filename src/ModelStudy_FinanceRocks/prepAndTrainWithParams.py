@@ -1185,6 +1185,315 @@ class ModelTrain(PrepareInDatForModeling, PreProcessor):
             status = "⚠️ POTENTIAL OVERFITTING" if self.ols_train_test_gap > 0.1 else "✓ GOOD GENERALIZATION"
             self.logger.info(f"Train-CV Gap: {self.ols_train_test_gap:.4f} {status}")
 
+    def find_highest_revenue_generating_companies(self, top_n: int = 20):
+        """
+        Find the highest revenue generating companies using multiple strategies.
+        
+        This method implements several analytical approaches to identify high-value customers:
+        1. Direct revenue ranking
+        2. Revenue by customer segment
+        3. High-value feature adopters
+        4. High-activity users
+        5. Model-predicted high-value companies
+        
+        Parameters
+        ----------
+        top_n : int, default=20
+            Number of top companies to display in each analysis
+            
+        Returns
+        -------
+        dict
+            Dictionary containing DataFrames for each analysis strategy
+        """
+        self.logger.info("\n" + "=" * 80)
+        self.logger.info("HIGHEST REVENUE GENERATING COMPANIES - COMPREHENSIVE ANALYSIS")
+        self.logger.info("=" * 80)
+        
+        # Get the original customer data with all revenue columns
+        customer_data = self.preprocessor.customer_data.copy()
+        
+        # ========================================================================
+        # STRATEGY 1: DIRECT REVENUE RANKING
+        # ========================================================================
+        self.logger.info("\n" + "-" * 80)
+        self.logger.info("STRATEGY 1: DIRECT REVENUE RANKING")
+        self.logger.info("-" * 80)
+        
+        # Get all discounted revenue columns
+        revenue_cols = [col for col in customer_data.columns 
+                       if col.startswith('line_total_discounted_vat_0_rev_')]
+        
+        # Calculate total revenue per company
+        customer_data['total_revenue'] = customer_data[revenue_cols].sum(axis=1)
+        
+        # Calculate revenue breakdown
+        customer_data['revenue_package'] = customer_data.get('line_total_discounted_vat_0_rev_package', 0)
+        customer_data['revenue_vouchers'] = customer_data.get('line_total_discounted_vat_0_rev_ex_vouchers', 0)
+        customer_data['revenue_employees'] = customer_data.get('line_total_discounted_vat_0_rev_ex_employees', 0)
+        customer_data['revenue_integrations'] = customer_data.get('line_total_discounted_vat_0_rev_integrations', 0)
+        customer_data['revenue_mobile'] = customer_data.get('line_total_discounted_vat_0_rev_mobile', 0)
+        customer_data['revenue_addon'] = customer_data.get('line_total_discounted_vat_0_rev_addon', 0)
+        
+        # Get top N companies by revenue
+        top_revenue_companies = customer_data.nlargest(top_n, 'total_revenue')[[
+            'id', 'package', 'company_type_label', 'tol_1_eng', 
+            'headcount_class', 'revenue_class',
+            'total_revenue', 'revenue_package', 'revenue_vouchers', 
+            'revenue_employees', 'revenue_integrations', 'revenue_mobile', 'revenue_addon'
+        ]]
+        
+        self.logger.info(f"\nTop {top_n} Companies by Total Revenue:")
+        self.logger.info(f"\n{top_revenue_companies.to_string()}")
+        
+        # Summary statistics
+        self.logger.info(f"\nRevenue Summary Statistics:")
+        self.logger.info(f"Total Revenue (All Companies): €{customer_data['total_revenue'].sum():,.2f}")
+        self.logger.info(f"Mean Revenue: €{customer_data['total_revenue'].mean():,.2f}")
+        self.logger.info(f"Median Revenue: €{customer_data['total_revenue'].median():,.2f}")
+        self.logger.info(f"Top {top_n} Companies Revenue: €{top_revenue_companies['total_revenue'].sum():,.2f}")
+        self.logger.info(f"Top {top_n} Revenue Contribution: {(top_revenue_companies['total_revenue'].sum() / customer_data['total_revenue'].sum() * 100):.2f}%")
+        
+        # ========================================================================
+        # STRATEGY 2: REVENUE BY CUSTOMER SEGMENT
+        # ========================================================================
+        self.logger.info("\n" + "-" * 80)
+        self.logger.info("STRATEGY 2: REVENUE BY CUSTOMER SEGMENT")
+        self.logger.info("-" * 80)
+        
+        # Analyze by package
+        package_analysis = customer_data.groupby('package').agg({
+            'total_revenue': ['sum', 'mean', 'median', 'count']
+        }).round(2)
+        package_analysis.columns = ['Total_Revenue', 'Avg_Revenue', 'Median_Revenue', 'Company_Count']
+        package_analysis = package_analysis.sort_values('Total_Revenue', ascending=False)
+        
+        self.logger.info("\nRevenue by Package:")
+        self.logger.info(f"\n{package_analysis.to_string()}")
+        
+        # Analyze by company type
+        if 'company_type_label' in customer_data.columns:
+            company_type_analysis = customer_data.groupby('company_type_label').agg({
+                'total_revenue': ['sum', 'mean', 'median', 'count']
+            }).round(2)
+            company_type_analysis.columns = ['Total_Revenue', 'Avg_Revenue', 'Median_Revenue', 'Company_Count']
+            company_type_analysis = company_type_analysis.sort_values('Total_Revenue', ascending=False)
+            
+            self.logger.info("\nRevenue by Company Type:")
+            self.logger.info(f"\n{company_type_analysis.to_string()}")
+        
+        # Analyze by industry (tol_1_eng)
+        if 'tol_1_eng' in customer_data.columns:
+            industry_analysis = customer_data.groupby('tol_1_eng').agg({
+                'total_revenue': ['sum', 'mean', 'median', 'count']
+            }).round(2)
+            industry_analysis.columns = ['Total_Revenue', 'Avg_Revenue', 'Median_Revenue', 'Company_Count']
+            industry_analysis = industry_analysis.sort_values('Total_Revenue', ascending=False).head(10)
+            
+            self.logger.info("\nTop 10 Industries by Revenue:")
+            self.logger.info(f"\n{industry_analysis.to_string()}")
+        
+        # Analyze by size class
+        if 'headcount_class' in customer_data.columns:
+            size_analysis = customer_data.groupby('headcount_class').agg({
+                'total_revenue': ['sum', 'mean', 'median', 'count']
+            }).round(2)
+            size_analysis.columns = ['Total_Revenue', 'Avg_Revenue', 'Median_Revenue', 'Company_Count']
+            size_analysis = size_analysis.sort_values('Total_Revenue', ascending=False)
+            
+            self.logger.info("\nRevenue by Headcount Class:")
+            self.logger.info(f"\n{size_analysis.to_string()}")
+        
+        # ========================================================================
+        # STRATEGY 3: HIGH-VALUE FEATURE ADOPTERS
+        # ========================================================================
+        self.logger.info("\n" + "-" * 80)
+        self.logger.info("STRATEGY 3: HIGH-VALUE FEATURE ADOPTERS")
+        self.logger.info("-" * 80)
+        
+        # Get add-on columns
+        addon_cols = [col for col in customer_data.columns if col.startswith('add_')]
+        
+        if addon_cols:
+            # Calculate feature adoption score
+            customer_data['addon_count'] = customer_data[addon_cols].sum(axis=1)
+            
+            # Analyze revenue by addon adoption
+            addon_analysis = customer_data.groupby('addon_count').agg({
+                'total_revenue': ['sum', 'mean', 'median', 'count']
+            }).round(2)
+            addon_analysis.columns = ['Total_Revenue', 'Avg_Revenue', 'Median_Revenue', 'Company_Count']
+            
+            self.logger.info("\nRevenue by Number of Add-ons Adopted:")
+            self.logger.info(f"\n{addon_analysis.to_string()}")
+            
+            # Find companies with high adoption AND high revenue
+            high_adopters = customer_data[customer_data['addon_count'] >= 3].nlargest(top_n, 'total_revenue')[[
+                'id', 'package', 'addon_count', 'total_revenue'
+            ] + addon_cols]
+            
+            self.logger.info(f"\nTop {top_n} High-Feature-Adoption Companies:")
+            self.logger.info(f"\n{high_adopters.to_string()}")
+        
+        # ========================================================================
+        # STRATEGY 4: HIGH-ACTIVITY USERS
+        # ========================================================================
+        self.logger.info("\n" + "-" * 80)
+        self.logger.info("STRATEGY 4: HIGH-ACTIVITY USERS")
+        self.logger.info("-" * 80)
+        
+        # Calculate usage intensity metrics
+        usage_metrics = {}
+        
+        if 'total_records_sum' in customer_data.columns:
+            customer_data['revenue_per_voucher'] = customer_data['total_revenue'] / (customer_data['total_records_sum'] + 1)
+            usage_metrics['total_records_sum'] = 'Total Vouchers'
+        
+        if 'total_SI_PI_vouchers_sum' in customer_data.columns:
+            customer_data['revenue_per_invoice'] = customer_data['total_revenue'] / (customer_data['total_SI_PI_vouchers_sum'] + 1)
+            usage_metrics['total_SI_PI_vouchers_sum'] = 'Total Invoices'
+        
+        if 'record_count_salary_mean' in customer_data.columns:
+            customer_data['revenue_per_employee'] = customer_data['total_revenue'] / (customer_data['record_count_salary_mean'] + 1)
+            usage_metrics['record_count_salary_mean'] = 'Avg Employees'
+        
+        # Find high-activity companies
+        for metric_col, metric_name in usage_metrics.items():
+            if metric_col in customer_data.columns:
+                top_activity = customer_data.nlargest(top_n, metric_col)[[
+                    'id', 'package', metric_col, 'total_revenue'
+                ]]
+                
+                self.logger.info(f"\nTop {top_n} Companies by {metric_name}:")
+                self.logger.info(f"\n{top_activity.to_string()}")
+        
+        # ========================================================================
+        # STRATEGY 5: MODEL-PREDICTED HIGH-VALUE COMPANIES
+        # ========================================================================
+        self.logger.info("\n" + "-" * 80)
+        self.logger.info("STRATEGY 5: MODEL-PREDICTED HIGH-VALUE COMPANIES")
+        self.logger.info("-" * 80)
+        
+        if hasattr(self, 'final_ols_results') and hasattr(self, 'mod_dsn'):
+            # DIAGNOSTIC: Log shapes and features for debugging
+            self.logger.info("\n=== PREDICTION DIAGNOSTICS ===")
+            self.logger.info(f"Model was trained with {len(self.final_ols_results.params)} parameters")
+            self.logger.info(f"Model parameter names: {list(self.final_ols_results.params.index)}")
+            self.logger.info(f"self.exog_glm has {len(self.exog_glm)} features")
+            self.logger.info(f"mod_dsn has {len(self.mod_dsn.columns)} columns")
+            self.logger.info(f"mod_dsn columns: {list(self.mod_dsn.columns)}")
+            
+            # Get the actual features used in the trained model
+            model_features = list(self.final_ols_results.params.index)
+            
+            # Check which features from exog_glm are in mod_dsn
+            available_features = [col for col in self.exog_glm if col in self.mod_dsn.columns]
+            missing_features = [col for col in self.exog_glm if col not in self.mod_dsn.columns]
+            
+            if missing_features:
+                self.logger.warning(f"WARNING: {len(missing_features)} features in exog_glm are missing from mod_dsn:")
+                self.logger.warning(f"Missing features: {missing_features}")
+            
+            # Check if model features match available features
+            model_feature_set = set(model_features)
+            available_feature_set = set(available_features)
+            
+            if model_feature_set != available_feature_set:
+                self.logger.warning("WARNING: Mismatch between model features and available features")
+                extra_in_model = model_feature_set - available_feature_set
+                extra_in_data = available_feature_set - model_feature_set
+                
+                if extra_in_model:
+                    self.logger.warning(f"Features in model but not in data: {extra_in_model}")
+                if extra_in_data:
+                    self.logger.warning(f"Features in data but not in model: {extra_in_data}")
+            
+            # Use the intersection of model features and available columns
+            # This ensures we only use features that both exist in mod_dsn AND were used in training
+            prediction_features = [col for col in model_features if col in self.mod_dsn.columns]
+            
+            self.logger.info(f"\nUsing {len(prediction_features)} features for prediction")
+            self.logger.info(f"Prediction features: {prediction_features}")
+            
+            # Get predictions using the correct feature set
+            try:
+                # Extract the data with only the features the model was trained on
+                X_pred = self.mod_dsn[prediction_features]
+                
+                self.logger.info(f"\nPrediction data shape: {X_pred.shape}")
+                self.logger.info(f"Expected shape: ({len(self.mod_dsn)}, {len(model_features)})")
+                
+                # Make predictions
+                predictions = self.final_ols_results.predict(X_pred)
+                
+                self.logger.info("✓ Predictions successful!")
+                
+            except ValueError as e:
+                self.logger.error(f"ValueError during prediction: {e}")
+                self.logger.error(f"X_pred shape: {X_pred.shape}")
+                self.logger.error(f"Model expects {len(model_features)} features")
+                self.logger.error(f"Provided {X_pred.shape[1]} features")
+                
+                # Log detailed mismatch information
+                self.logger.error("\n=== DETAILED MISMATCH ANALYSIS ===")
+                self.logger.error(f"Model features ({len(model_features)}): {model_features}")
+                self.logger.error(f"Prediction features ({len(prediction_features)}): {prediction_features}")
+                
+                # Skip this strategy if prediction fails
+                self.logger.warning("⚠️ Skipping Strategy 5 due to prediction error")
+                predictions = None
+            
+            # Only proceed if predictions were successful
+            if predictions is not None:
+                # Create analysis DataFrame
+                prediction_analysis = pd.DataFrame({
+                    'predicted_log_revenue': predictions,
+                    'actual_log_revenue': self.mod_dsn[self.endog_glm],
+                    'residual': self.mod_dsn[self.endog_glm] - predictions
+                })
+                
+                # Convert back from log scale
+                prediction_analysis['predicted_revenue'] = np.exp(prediction_analysis['predicted_log_revenue'])
+                prediction_analysis['actual_revenue'] = np.exp(prediction_analysis['actual_log_revenue'])
+                
+                # Top predicted revenue companies
+                top_predicted = prediction_analysis.nlargest(top_n, 'predicted_revenue')
+                self.logger.info(f"\nTop {top_n} Companies by Predicted Revenue:")
+                self.logger.info(f"\n{top_predicted[['predicted_revenue', 'actual_revenue', 'residual']].to_string()}")
+                
+                # Over-performers (positive residuals)
+                over_performers = prediction_analysis.nlargest(top_n, 'residual')
+                self.logger.info(f"\nTop {top_n} Over-Performing Companies (Actual > Predicted):")
+                self.logger.info(f"\n{over_performers[['predicted_revenue', 'actual_revenue', 'residual']].to_string()}")
+                
+                # Under-performers (negative residuals) - potential churn risk
+                under_performers = prediction_analysis.nsmallest(top_n, 'residual')
+                self.logger.info(f"\nTop {top_n} Under-Performing Companies (Actual < Predicted) - CHURN RISK:")
+                self.logger.info(f"\n{under_performers[['predicted_revenue', 'actual_revenue', 'residual']].to_string()}")
+        else:
+            self.logger.warning("⚠️ Skipping Strategy 5: Model results or design matrix not available")
+        
+        # ========================================================================
+        # SUMMARY AND RECOMMENDATIONS
+        # ========================================================================
+        self.logger.info("\n" + "=" * 80)
+        self.logger.info("SUMMARY AND KEY INSIGHTS")
+        self.logger.info("=" * 80)
+        
+        self.logger.info("\n✓ Analysis Complete - Multiple strategies applied to identify high-value customers")
+        self.logger.info(f"✓ Total companies analyzed: {len(customer_data)}")
+        self.logger.info(f"✓ Total revenue: €{customer_data['total_revenue'].sum():,.2f}")
+        
+        # Store results for later use
+        self.revenue_analysis_results = {
+            'top_revenue_companies': top_revenue_companies,
+            'package_analysis': package_analysis,
+            'customer_data_with_metrics': customer_data
+        }
+        
+        return self.revenue_analysis_results
+
+
 if __name__ == "__main__":
     import traceback
     try:
@@ -1217,6 +1526,11 @@ if __name__ == "__main__":
         # log final model summary
         model_trainer.logger.info(model_trainer.final_ols_results.summary())
 
+        # Find highest revenue generating companies using multiple strategies
+        model_trainer.logger.info("\n\n" + "=" * 80)
+        model_trainer.logger.info("RUNNING REVENUE ANALYSIS")
+        model_trainer.logger.info("=" * 80)
+        revenue_results = model_trainer.find_highest_revenue_generating_companies(top_n=20)
         
     except Exception as e:
         model_trainer.logger.error(f"Error in main: {e}")
