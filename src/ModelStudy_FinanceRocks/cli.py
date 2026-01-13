@@ -3,7 +3,8 @@
 import typer
 from rich.console import Console
 
-from ModelStudy_FR import utils
+from . import ModelStudy_FR
+from . import utils
 
 app = typer.Typer()
 console = Console()

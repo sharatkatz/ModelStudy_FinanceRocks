@@ -1,0 +1,1981 @@
+============================= test session starts =============================
+platform win32 -- Python 3.11.9, pytest-9.0.2, pluggy-1.6.0 -- C:\Users\shara\AppData\Local\Microsoft\WindowsApps\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\python.exe
+cachedir: .pytest_cache
+rootdir: c:\Users\shara\Documents\PersonalBackedup\Resume\FinnDotNo\Accountor Case Study\Senior Data Scientist - Case Materials - outer\Senior Revenue Analyst - Case Materials - inner\ModelStudy_FinanceRocks
+configfile: pyproject.toml
+plugins: cov-7.0.0
+collecting ... DEBUG: revenue_analysis imported from c:\Users\shara\Documents\PersonalBackedup\Resume\FinnDotNo\Accountor Case Study\Senior Data Scientist - Case Materials - outer\Senior Revenue Analyst - Case Materials - inner\ModelStudy_FinanceRocks\src\ModelStudy_FinanceRocks\revenue_analysis.py
+collected 5 items
+
+tests/test_revenue_analysis.py::test_revenue_analyzer_initialization     id    package  accounting_office_id company_type_label   tol_1_eng  \
+0    0  package_3                     8        Partnership  Industry A   
+1    1  package_1                     8          Sole Prop  Industry C   
+2    2  package_3                     3                LTD  Industry C   
+3    3  package_3                     1          Sole Prop  Industry A   
+4    4  package_1                     8          Sole Prop  Industry A   
+..  ..        ...                   ...                ...         ...   
+95  95  package_1                     7          Sole Prop  Industry A   
+96  96  package_1                     4                LTD  Industry B   
+97  97  package_3                     7        Partnership  Industry C   
+98  98  package_1                     8                LTD  Industry C   
+99  99  package_1                     1                LTD  Industry C   
+
+         tol_2_eng headcount_class revenue_class ao_revenue_class  \
+0   Sub-Industry Y         10 - 19      0 - 0.2M         0 - 0.2M   
+1   Sub-Industry Y         10 - 19    0.2 - 0.4M       0.2 - 0.4M   
+2   Sub-Industry Y         10 - 19      0 - 0.2M         0 - 0.2M   
+3   Sub-Industry X           5 - 9      0.4 - 1M       0.2 - 0.4M   
+4   Sub-Industry Y           2 - 4      0.4 - 1M       0.2 - 0.4M   
+..             ...             ...           ...              ...   
+95  Sub-Industry X               1    0.2 - 0.4M         0.4 - 1M   
+96  Sub-Industry Y               1      0 - 0.2M         0 - 0.2M   
+97  Sub-Industry X           2 - 4      0.4 - 1M       0.2 - 0.4M   
+98  Sub-Industry X         10 - 19      0 - 0.2M         0.4 - 1M   
+99  Sub-Industry Y         10 - 19      0 - 0.2M         0 - 0.2M   
+
+   ao_headcount_class  total_records_months_used  total_records_mean  \
+0               5 - 9                         11           62.788189   
+1                   1                         11           60.801269   
+2                   1                         11           44.089536   
+3                   1                          3           40.370215   
+4               2 - 4                          9           90.968266   
+..                ...                        ...                 ...   
+95              2 - 4                          2           30.612285   
+96              2 - 4                          4           58.856438   
+97                  1                          6           48.837533   
+98              2 - 4                          2           39.953421   
+99                  1                          8           75.749422   
+
+    total_records_sum  total_SI_PI_vouchers_months_used  \
+0          869.215016                                 1   
+1          300.069221                                 8   
+2         1068.919445                                 3   
+3          655.057517                                 2   
+4          920.777784                                 1   
+..                ...                               ...   
+95         443.563585                                 8   
+96         454.731880                                 1   
+97         549.103565                                10   
+98         580.932018                                 8   
+99         983.764584                                11   
+
+    total_SI_PI_vouchers_mean  total_SI_PI_vouchers_sum  \
+0                   45.254850                559.173946   
+1                   40.993487                584.371452   
+2                   24.134608                569.903904   
+3                    6.011119                316.075677   
+4                   17.090481                525.503032   
+..                        ...                       ...   
+95                  30.557535                533.828866   
+96                  46.196973                203.424023   
+97                   6.527569                129.938057   
+98                  36.383912                539.923963   
+99                  18.380705                576.051809   
+
+    record_count_salary_months_used  record_count_salary_mean  add_api  \
+0                                11                  2.050195        1   
+1                                 9                 18.744570        0   
+2                                 8                 13.757714        1   
+3                                 7                  1.356741        0   
+4                                 8                  6.019271        0   
+..                              ...                       ...      ...   
+95                                8                  9.977763        0   
+96                                1                 12.363115        1   
+97                               11                 14.049299        0   
+98                               11                 11.192974        1   
+99                                4                  0.195417        1   
+
+    add_bank_account  add_contract_invoicing  add_cust_invoice  \
+0                  0                       0                 1   
+1                  0                       0                 0   
+2                  0                       0                 1   
+3                  1                       0                 1   
+4                  1                       1                 0   
+..               ...                     ...               ...   
+95                 0                       0                 1   
+96                 0                       1                 1   
+97                 1                       0                 0   
+98                 1                       1                 0   
+99                 0                       1                 0   
+
+    add_ext_dimensions  add_inventory  add_junior  add_mobile  add_sftp  \
+0                    0              1           1           1         0   
+1                    0              1           1           1         0   
+2                    1              0           0           0         1   
+3                    1              1           0           0         0   
+4                    0              0           0           1         1   
+..                 ...            ...         ...         ...       ...   
+95                   1              0           1           1         1   
+96                   1              0           1           1         1   
+97                   1              0           1           1         1   
+98                   0              1           1           0         0   
+99                   0              0           0           1         1   
+
+    mobile_user_count  line_total_vat_0_rev_package  \
+0                   4                    139.358260   
+1                   3                    364.121088   
+2                   2                    405.749065   
+3                   6                    206.018571   
+4                   5                    108.377984   
+..                ...                           ...   
+95                  2                    398.293513   
+96                  6                    180.992224   
+97                  2                    483.229392   
+98                  2                    247.176301   
+99                  9                    230.772647   
+
+    line_total_vat_0_rev_ex_vouchers  line_total_vat_0_rev_ex_employees  \
+0                          29.777610                          73.135679   
+1                          61.120843                           5.042040   
+2                         175.330152                           9.397981   
+3                         199.266868                         135.965618   
+4                          73.661906                          20.886806   
+..                               ...                                ...   
+95                         54.389945                         118.989203   
+96                        151.879652                          47.514252   
+97                         89.947968                         128.576889   
+98                        155.342111                         135.921488   
+99                         13.073232                          41.535673   
+
+    line_total_vat_0_rev_integrations  line_total_vat_0_rev_mobile  \
+0                           98.352147                    45.538508   
+1                           14.071153                    37.698095   
+2                           20.201567                    40.245339   
+3                           18.422484                     0.900328   
+4                           89.398971                    48.140518   
+..                                ...                          ...   
+95                          73.990412                    46.587686   
+96                          91.807655                    19.850752   
+97                          28.003733                     4.354638   
+98                          85.834168                    30.853326   
+99                          29.221823                     5.691920   
+
+    line_total_vat_0_rev_addon  line_total_vat_0_rev_trx  \
+0                    27.617851                 18.160065   
+1                    40.592955                 27.530969   
+2                    69.937802                  5.622119   
+3                    39.483726                 19.423588   
+4                    56.180701                  1.101469   
+..                         ...                       ...   
+95                   54.169651                  8.018981   
+96                   48.462340                  4.370568   
+97                   29.167498                 34.158479   
+98                   17.431404                 17.565993   
+99                   79.042877                 33.878754   
+
+    line_total_discounted_vat_0_rev_package  \
+0                                410.443376   
+1                                103.109310   
+2                                406.881962   
+3                                245.878050   
+4                                268.860021   
+..                                      ...   
+95                                80.049836   
+96                               269.117782   
+97                                97.335206   
+98                               182.182736   
+99                               341.581300   
+
+    line_total_discounted_vat_0_rev_ex_vouchers  \
+0                                     11.284132   
+1                                    151.080929   
+2                                      0.687586   
+3                                     44.428296   
+4                                    133.362730   
+..                                          ...   
+95                                   138.628478   
+96                                   145.287997   
+97                                    21.637301   
+98                                    47.804910   
+99                                     3.159425   
+
+    line_total_discounted_vat_0_rev_ex_employees  \
+0                                      38.130119   
+1                                     100.508444   
+2                                      67.334869   
+3                                      45.252427   
+4                                      48.326108   
+..                                           ...   
+95                                     67.789753   
+96                                    127.050028   
+97                                     98.450327   
+98                                     21.017287   
+99                                     61.997014   
+
+    line_total_discounted_vat_0_rev_integrations  \
+0                                      64.649806   
+1                                      22.260628   
+2                                      57.655367   
+3                                      59.994043   
+4                                      14.642977   
+..                                           ...   
+95                                     47.025916   
+96                                      4.917098   
+97                                     87.577035   
+98                                     20.351280   
+99                                     27.377885   
+
+    line_total_discounted_vat_0_rev_mobile  \
+0                                13.677413   
+1                                10.368750   
+2                                 0.066322   
+3                                32.820516   
+4                                43.508047   
+..                                     ...   
+95                               25.728569   
+96                               37.477367   
+97                               40.773918   
+98                                0.547055   
+99                               30.330896   
+
+    line_total_discounted_vat_0_rev_addon  \
+0                                3.887685   
+1                               41.164400   
+2                               21.572455   
+3                               23.008245   
+4                               26.471888   
+..                                    ...   
+95                              19.403373   
+96                              32.580249   
+97                              54.258586   
+98                               0.679062   
+99                              44.209049   
+
+    line_total_discounted_vat_0_rev_trx  total_revenue  
+0                             21.465209     431.940121  
+1                             22.319089     550.177144  
+2                              8.470773     726.484024  
+3                             24.991845     619.481183  
+4                              3.198702     397.748355  
+..                                  ...            ...  
+95                            23.692927     754.439391  
+96                            29.326793     544.877444  
+97                            30.056750     797.438597  
+98                            26.192455     690.124791  
+99                            15.372371     433.216925  
+
+[100 rows x 43 columns] 
+
+
+Here is the info of the data:
+
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 100 entries, 0 to 99
+Data columns (total 43 columns):
+ #   Column                                        Non-Null Count  Dtype  
+---  ------                                        --------------  -----  
+ 0   id                                            100 non-null    int64  
+ 1   package                                       100 non-null    object 
+ 2   accounting_office_id                          100 non-null    int32  
+ 3   company_type_label                            100 non-null    object 
+ 4   tol_1_eng                                     100 non-null    object 
+ 5   tol_2_eng                                     100 non-null    object 
+ 6   headcount_class                               100 non-null    object 
+ 7   revenue_class                                 100 non-null    object 
+ 8   ao_revenue_class                              100 non-null    object 
+ 9   ao_headcount_class                            100 non-null    object 
+ 10  total_records_months_used                     100 non-null    int32  
+ 11  total_records_mean                            100 non-null    float64
+ 12  total_records_sum                             100 non-null    float64
+ 13  total_SI_PI_vouchers_months_used              100 non-null    int32  
+ 14  total_SI_PI_vouchers_mean                     100 non-null    float64
+ 15  total_SI_PI_vouchers_sum                      100 non-null    float64
+ 16  record_count_salary_months_used               100 non-null    int32  
+ 17  record_count_salary_mean                      100 non-null    float64
+ 18  add_api                                       100 non-null    int32  
+ 19  add_bank_account                              100 non-null    int32  
+ 20  add_contract_invoicing                        100 non-null    int32  
+ 21  add_cust_invoice                              100 non-null    int32  
+ 22  add_ext_dimensions                            100 non-null    int32  
+ 23  add_inventory                                 100 non-null    int32  
+ 24  add_junior                                    100 non-null    int32  
+ 25  add_mobile                                    100 non-null    int32  
+ 26  add_sftp                                      100 non-null    int32  
+ 27  mobile_user_count                             100 non-null    int32  
+ 28  line_total_vat_0_rev_package                  100 non-null    float64
+ 29  line_total_vat_0_rev_ex_vouchers              100 non-null    float64
+ 30  line_total_vat_0_rev_ex_employees             100 non-null    float64
+ 31  line_total_vat_0_rev_integrations             100 non-null    float64
+ 32  line_total_vat_0_rev_mobile                   100 non-null    float64
+ 33  line_total_vat_0_rev_addon                    100 non-null    float64
+ 34  line_total_vat_0_rev_trx                      100 non-null    float64
+ 35  line_total_discounted_vat_0_rev_package       100 non-null    float64
+ 36  line_total_discounted_vat_0_rev_ex_vouchers   100 non-null    float64
+ 37  line_total_discounted_vat_0_rev_ex_employees  100 non-null    float64
+ 38  line_total_discounted_vat_0_rev_integrations  100 non-null    float64
+ 39  line_total_discounted_vat_0_rev_mobile        100 non-null    float64
+ 40  line_total_discounted_vat_0_rev_addon         100 non-null    float64
+ 41  line_total_discounted_vat_0_rev_trx           100 non-null    float64
+ 42  total_revenue                                 100 non-null    float64
+dtypes: float64(20), int32(14), int64(1), object(8)
+memory usage: 28.3+ KB
+None 
+
+
+Normalizing categorical column: package
+Normalizing categorical column: company_type_label
+Normalizing categorical column: tol_1_eng
+Normalizing categorical column: tol_2_eng
+Skipping ordinal column: headcount_class
+Skipping ordinal column: revenue_class
+Skipping ordinal column: ao_revenue_class
+Skipping ordinal column: ao_headcount_class
+Normalizing numerical column: total_records_months_used
+Normalizing numerical column: total_records_mean
+Normalizing numerical column: total_records_sum
+Normalizing numerical column: total_SI_PI_vouchers_months_used
+Normalizing numerical column: total_SI_PI_vouchers_mean
+Normalizing numerical column: total_SI_PI_vouchers_sum
+Normalizing numerical column: record_count_salary_months_used
+Normalizing numerical column: record_count_salary_mean
+Normalizing numerical column: add_api
+Normalizing numerical column: add_bank_account
+Normalizing numerical column: add_contract_invoicing
+Normalizing numerical column: add_cust_invoice
+Normalizing numerical column: add_ext_dimensions
+Normalizing numerical column: add_inventory
+Normalizing numerical column: add_junior
+Normalizing numerical column: add_mobile
+Normalizing numerical column: add_sftp
+Normalizing numerical column: mobile_user_count
+
+
+One-hot encoding nominal columns: ['company_type_label', 'tol_1_eng', 'tol_2_eng']
+
+
+
+Doing the ordinal mapping of col -- package
+Doing the ordinal mapping of col -- headcount_class
+Doing the ordinal mapping of col -- revenue_class
+Doing the ordinal mapping of col -- ao_revenue_class
+Doing the ordinal mapping of col -- ao_headcount_class
+
+
+
+Column 'id' is not in the list of predictors to log transform. Skipping.
+Column 'package' is not in the list of predictors to log transform. Skipping.
+Column 'accounting_office_id' is not in the list of predictors to log transform. Skipping.
+Column 'headcount_class' is not in the list of predictors to log transform. Skipping.
+Column 'revenue_class' is not in the list of predictors to log transform. Skipping.
+Column 'ao_revenue_class' is not in the list of predictors to log transform. Skipping.
+Column 'ao_headcount_class' is not in the list of predictors to log transform. Skipping.
+Applying log transformation to column: total_records_months_used
+Applying log transformation to column: total_records_mean
+Applying log transformation to column: total_records_sum
+Applying log transformation to column: total_SI_PI_vouchers_months_used
+Applying log transformation to column: total_SI_PI_vouchers_mean
+Applying log transformation to column: total_SI_PI_vouchers_sum
+Applying log transformation to column: record_count_salary_months_used
+Applying log transformation to column: record_count_salary_mean
+Column 'add_api' is not in the list of predictors to log transform. Skipping.
+Column 'add_bank_account' is not in the list of predictors to log transform. Skipping.
+Column 'add_contract_invoicing' is not in the list of predictors to log transform. Skipping.
+Column 'add_cust_invoice' is not in the list of predictors to log transform. Skipping.
+Column 'add_ext_dimensions' is not in the list of predictors to log transform. Skipping.
+Column 'add_inventory' is not in the list of predictors to log transform. Skipping.
+Column 'add_junior' is not in the list of predictors to log transform. Skipping.
+Column 'add_mobile' is not in the list of predictors to log transform. Skipping.
+Column 'add_sftp' is not in the list of predictors to log transform. Skipping.
+Applying log transformation to column: mobile_user_count
+Column 'line_total_vat_0_rev_package' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_vat_0_rev_ex_vouchers' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_vat_0_rev_ex_employees' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_vat_0_rev_integrations' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_vat_0_rev_mobile' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_vat_0_rev_addon' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_vat_0_rev_trx' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_discounted_vat_0_rev_package' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_discounted_vat_0_rev_ex_vouchers' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_discounted_vat_0_rev_ex_employees' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_discounted_vat_0_rev_integrations' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_discounted_vat_0_rev_mobile' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_discounted_vat_0_rev_addon' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_discounted_vat_0_rev_trx' is not in the list of predictors to log transform. Skipping.
+Column 'total_revenue' is not in the list of predictors to log transform. Skipping.
+Column 'company_type_label_partnership' is not in the list of predictors to log transform. Skipping.
+Column 'company_type_label_sole_prop' is not in the list of predictors to log transform. Skipping.
+Column 'tol_1_eng_industry_b' is not in the list of predictors to log transform. Skipping.
+Column 'tol_1_eng_industry_c' is not in the list of predictors to log transform. Skipping.
+Column 'tol_2_eng_sub_industry_y' is not in the list of predictors to log transform. Skipping.
+
+Running module: log_transform_outcome on column: total_revenue
+Applying log transformation to column: total_revenue
+PASSED
+tests/test_revenue_analysis.py::test_direct_revenue_ranking     id    package  accounting_office_id company_type_label   tol_1_eng  \
+0    0  package_3                     8        Partnership  Industry A   
+1    1  package_1                     8          Sole Prop  Industry C   
+2    2  package_3                     3                LTD  Industry C   
+3    3  package_3                     1          Sole Prop  Industry A   
+4    4  package_1                     8          Sole Prop  Industry A   
+..  ..        ...                   ...                ...         ...   
+95  95  package_1                     7          Sole Prop  Industry A   
+96  96  package_1                     4                LTD  Industry B   
+97  97  package_3                     7        Partnership  Industry C   
+98  98  package_1                     8                LTD  Industry C   
+99  99  package_1                     1                LTD  Industry C   
+
+         tol_2_eng headcount_class revenue_class ao_revenue_class  \
+0   Sub-Industry Y         10 - 19      0 - 0.2M         0 - 0.2M   
+1   Sub-Industry Y         10 - 19    0.2 - 0.4M       0.2 - 0.4M   
+2   Sub-Industry Y         10 - 19      0 - 0.2M         0 - 0.2M   
+3   Sub-Industry X           5 - 9      0.4 - 1M       0.2 - 0.4M   
+4   Sub-Industry Y           2 - 4      0.4 - 1M       0.2 - 0.4M   
+..             ...             ...           ...              ...   
+95  Sub-Industry X               1    0.2 - 0.4M         0.4 - 1M   
+96  Sub-Industry Y               1      0 - 0.2M         0 - 0.2M   
+97  Sub-Industry X           2 - 4      0.4 - 1M       0.2 - 0.4M   
+98  Sub-Industry X         10 - 19      0 - 0.2M         0.4 - 1M   
+99  Sub-Industry Y         10 - 19      0 - 0.2M         0 - 0.2M   
+
+   ao_headcount_class  total_records_months_used  total_records_mean  \
+0               5 - 9                         11           62.788189   
+1                   1                         11           60.801269   
+2                   1                         11           44.089536   
+3                   1                          3           40.370215   
+4               2 - 4                          9           90.968266   
+..                ...                        ...                 ...   
+95              2 - 4                          2           30.612285   
+96              2 - 4                          4           58.856438   
+97                  1                          6           48.837533   
+98              2 - 4                          2           39.953421   
+99                  1                          8           75.749422   
+
+    total_records_sum  total_SI_PI_vouchers_months_used  \
+0          869.215016                                 1   
+1          300.069221                                 8   
+2         1068.919445                                 3   
+3          655.057517                                 2   
+4          920.777784                                 1   
+..                ...                               ...   
+95         443.563585                                 8   
+96         454.731880                                 1   
+97         549.103565                                10   
+98         580.932018                                 8   
+99         983.764584                                11   
+
+    total_SI_PI_vouchers_mean  total_SI_PI_vouchers_sum  \
+0                   45.254850                559.173946   
+1                   40.993487                584.371452   
+2                   24.134608                569.903904   
+3                    6.011119                316.075677   
+4                   17.090481                525.503032   
+..                        ...                       ...   
+95                  30.557535                533.828866   
+96                  46.196973                203.424023   
+97                   6.527569                129.938057   
+98                  36.383912                539.923963   
+99                  18.380705                576.051809   
+
+    record_count_salary_months_used  record_count_salary_mean  add_api  \
+0                                11                  2.050195        1   
+1                                 9                 18.744570        0   
+2                                 8                 13.757714        1   
+3                                 7                  1.356741        0   
+4                                 8                  6.019271        0   
+..                              ...                       ...      ...   
+95                                8                  9.977763        0   
+96                                1                 12.363115        1   
+97                               11                 14.049299        0   
+98                               11                 11.192974        1   
+99                                4                  0.195417        1   
+
+    add_bank_account  add_contract_invoicing  add_cust_invoice  \
+0                  0                       0                 1   
+1                  0                       0                 0   
+2                  0                       0                 1   
+3                  1                       0                 1   
+4                  1                       1                 0   
+..               ...                     ...               ...   
+95                 0                       0                 1   
+96                 0                       1                 1   
+97                 1                       0                 0   
+98                 1                       1                 0   
+99                 0                       1                 0   
+
+    add_ext_dimensions  add_inventory  add_junior  add_mobile  add_sftp  \
+0                    0              1           1           1         0   
+1                    0              1           1           1         0   
+2                    1              0           0           0         1   
+3                    1              1           0           0         0   
+4                    0              0           0           1         1   
+..                 ...            ...         ...         ...       ...   
+95                   1              0           1           1         1   
+96                   1              0           1           1         1   
+97                   1              0           1           1         1   
+98                   0              1           1           0         0   
+99                   0              0           0           1         1   
+
+    mobile_user_count  line_total_vat_0_rev_package  \
+0                   4                    139.358260   
+1                   3                    364.121088   
+2                   2                    405.749065   
+3                   6                    206.018571   
+4                   5                    108.377984   
+..                ...                           ...   
+95                  2                    398.293513   
+96                  6                    180.992224   
+97                  2                    483.229392   
+98                  2                    247.176301   
+99                  9                    230.772647   
+
+    line_total_vat_0_rev_ex_vouchers  line_total_vat_0_rev_ex_employees  \
+0                          29.777610                          73.135679   
+1                          61.120843                           5.042040   
+2                         175.330152                           9.397981   
+3                         199.266868                         135.965618   
+4                          73.661906                          20.886806   
+..                               ...                                ...   
+95                         54.389945                         118.989203   
+96                        151.879652                          47.514252   
+97                         89.947968                         128.576889   
+98                        155.342111                         135.921488   
+99                         13.073232                          41.535673   
+
+    line_total_vat_0_rev_integrations  line_total_vat_0_rev_mobile  \
+0                           98.352147                    45.538508   
+1                           14.071153                    37.698095   
+2                           20.201567                    40.245339   
+3                           18.422484                     0.900328   
+4                           89.398971                    48.140518   
+..                                ...                          ...   
+95                          73.990412                    46.587686   
+96                          91.807655                    19.850752   
+97                          28.003733                     4.354638   
+98                          85.834168                    30.853326   
+99                          29.221823                     5.691920   
+
+    line_total_vat_0_rev_addon  line_total_vat_0_rev_trx  \
+0                    27.617851                 18.160065   
+1                    40.592955                 27.530969   
+2                    69.937802                  5.622119   
+3                    39.483726                 19.423588   
+4                    56.180701                  1.101469   
+..                         ...                       ...   
+95                   54.169651                  8.018981   
+96                   48.462340                  4.370568   
+97                   29.167498                 34.158479   
+98                   17.431404                 17.565993   
+99                   79.042877                 33.878754   
+
+    line_total_discounted_vat_0_rev_package  \
+0                                410.443376   
+1                                103.109310   
+2                                406.881962   
+3                                245.878050   
+4                                268.860021   
+..                                      ...   
+95                                80.049836   
+96                               269.117782   
+97                                97.335206   
+98                               182.182736   
+99                               341.581300   
+
+    line_total_discounted_vat_0_rev_ex_vouchers  \
+0                                     11.284132   
+1                                    151.080929   
+2                                      0.687586   
+3                                     44.428296   
+4                                    133.362730   
+..                                          ...   
+95                                   138.628478   
+96                                   145.287997   
+97                                    21.637301   
+98                                    47.804910   
+99                                     3.159425   
+
+    line_total_discounted_vat_0_rev_ex_employees  \
+0                                      38.130119   
+1                                     100.508444   
+2                                      67.334869   
+3                                      45.252427   
+4                                      48.326108   
+..                                           ...   
+95                                     67.789753   
+96                                    127.050028   
+97                                     98.450327   
+98                                     21.017287   
+99                                     61.997014   
+
+    line_total_discounted_vat_0_rev_integrations  \
+0                                      64.649806   
+1                                      22.260628   
+2                                      57.655367   
+3                                      59.994043   
+4                                      14.642977   
+..                                           ...   
+95                                     47.025916   
+96                                      4.917098   
+97                                     87.577035   
+98                                     20.351280   
+99                                     27.377885   
+
+    line_total_discounted_vat_0_rev_mobile  \
+0                                13.677413   
+1                                10.368750   
+2                                 0.066322   
+3                                32.820516   
+4                                43.508047   
+..                                     ...   
+95                               25.728569   
+96                               37.477367   
+97                               40.773918   
+98                                0.547055   
+99                               30.330896   
+
+    line_total_discounted_vat_0_rev_addon  \
+0                                3.887685   
+1                               41.164400   
+2                               21.572455   
+3                               23.008245   
+4                               26.471888   
+..                                    ...   
+95                              19.403373   
+96                              32.580249   
+97                              54.258586   
+98                               0.679062   
+99                              44.209049   
+
+    line_total_discounted_vat_0_rev_trx  total_revenue  
+0                             21.465209     431.940121  
+1                             22.319089     550.177144  
+2                              8.470773     726.484024  
+3                             24.991845     619.481183  
+4                              3.198702     397.748355  
+..                                  ...            ...  
+95                            23.692927     754.439391  
+96                            29.326793     544.877444  
+97                            30.056750     797.438597  
+98                            26.192455     690.124791  
+99                            15.372371     433.216925  
+
+[100 rows x 43 columns] 
+
+
+Here is the info of the data:
+
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 100 entries, 0 to 99
+Data columns (total 43 columns):
+ #   Column                                        Non-Null Count  Dtype  
+---  ------                                        --------------  -----  
+ 0   id                                            100 non-null    int64  
+ 1   package                                       100 non-null    object 
+ 2   accounting_office_id                          100 non-null    int32  
+ 3   company_type_label                            100 non-null    object 
+ 4   tol_1_eng                                     100 non-null    object 
+ 5   tol_2_eng                                     100 non-null    object 
+ 6   headcount_class                               100 non-null    object 
+ 7   revenue_class                                 100 non-null    object 
+ 8   ao_revenue_class                              100 non-null    object 
+ 9   ao_headcount_class                            100 non-null    object 
+ 10  total_records_months_used                     100 non-null    int32  
+ 11  total_records_mean                            100 non-null    float64
+ 12  total_records_sum                             100 non-null    float64
+ 13  total_SI_PI_vouchers_months_used              100 non-null    int32  
+ 14  total_SI_PI_vouchers_mean                     100 non-null    float64
+ 15  total_SI_PI_vouchers_sum                      100 non-null    float64
+ 16  record_count_salary_months_used               100 non-null    int32  
+ 17  record_count_salary_mean                      100 non-null    float64
+ 18  add_api                                       100 non-null    int32  
+ 19  add_bank_account                              100 non-null    int32  
+ 20  add_contract_invoicing                        100 non-null    int32  
+ 21  add_cust_invoice                              100 non-null    int32  
+ 22  add_ext_dimensions                            100 non-null    int32  
+ 23  add_inventory                                 100 non-null    int32  
+ 24  add_junior                                    100 non-null    int32  
+ 25  add_mobile                                    100 non-null    int32  
+ 26  add_sftp                                      100 non-null    int32  
+ 27  mobile_user_count                             100 non-null    int32  
+ 28  line_total_vat_0_rev_package                  100 non-null    float64
+ 29  line_total_vat_0_rev_ex_vouchers              100 non-null    float64
+ 30  line_total_vat_0_rev_ex_employees             100 non-null    float64
+ 31  line_total_vat_0_rev_integrations             100 non-null    float64
+ 32  line_total_vat_0_rev_mobile                   100 non-null    float64
+ 33  line_total_vat_0_rev_addon                    100 non-null    float64
+ 34  line_total_vat_0_rev_trx                      100 non-null    float64
+ 35  line_total_discounted_vat_0_rev_package       100 non-null    float64
+ 36  line_total_discounted_vat_0_rev_ex_vouchers   100 non-null    float64
+ 37  line_total_discounted_vat_0_rev_ex_employees  100 non-null    float64
+ 38  line_total_discounted_vat_0_rev_integrations  100 non-null    float64
+ 39  line_total_discounted_vat_0_rev_mobile        100 non-null    float64
+ 40  line_total_discounted_vat_0_rev_addon         100 non-null    float64
+ 41  line_total_discounted_vat_0_rev_trx           100 non-null    float64
+ 42  total_revenue                                 100 non-null    float64
+dtypes: float64(20), int32(14), int64(1), object(8)
+memory usage: 28.3+ KB
+None 
+
+
+Normalizing categorical column: package
+Normalizing categorical column: company_type_label
+Normalizing categorical column: tol_1_eng
+Normalizing categorical column: tol_2_eng
+Skipping ordinal column: headcount_class
+Skipping ordinal column: revenue_class
+Skipping ordinal column: ao_revenue_class
+Skipping ordinal column: ao_headcount_class
+Normalizing numerical column: total_records_months_used
+Normalizing numerical column: total_records_mean
+Normalizing numerical column: total_records_sum
+Normalizing numerical column: total_SI_PI_vouchers_months_used
+Normalizing numerical column: total_SI_PI_vouchers_mean
+Normalizing numerical column: total_SI_PI_vouchers_sum
+Normalizing numerical column: record_count_salary_months_used
+Normalizing numerical column: record_count_salary_mean
+Normalizing numerical column: add_api
+Normalizing numerical column: add_bank_account
+Normalizing numerical column: add_contract_invoicing
+Normalizing numerical column: add_cust_invoice
+Normalizing numerical column: add_ext_dimensions
+Normalizing numerical column: add_inventory
+Normalizing numerical column: add_junior
+Normalizing numerical column: add_mobile
+Normalizing numerical column: add_sftp
+Normalizing numerical column: mobile_user_count
+
+
+One-hot encoding nominal columns: ['company_type_label', 'tol_1_eng', 'tol_2_eng']
+
+
+
+Doing the ordinal mapping of col -- package
+Doing the ordinal mapping of col -- headcount_class
+Doing the ordinal mapping of col -- revenue_class
+Doing the ordinal mapping of col -- ao_revenue_class
+Doing the ordinal mapping of col -- ao_headcount_class
+
+
+
+Column 'id' is not in the list of predictors to log transform. Skipping.
+Column 'package' is not in the list of predictors to log transform. Skipping.
+Column 'accounting_office_id' is not in the list of predictors to log transform. Skipping.
+Column 'headcount_class' is not in the list of predictors to log transform. Skipping.
+Column 'revenue_class' is not in the list of predictors to log transform. Skipping.
+Column 'ao_revenue_class' is not in the list of predictors to log transform. Skipping.
+Column 'ao_headcount_class' is not in the list of predictors to log transform. Skipping.
+Applying log transformation to column: total_records_months_used
+Applying log transformation to column: total_records_mean
+Applying log transformation to column: total_records_sum
+Applying log transformation to column: total_SI_PI_vouchers_months_used
+Applying log transformation to column: total_SI_PI_vouchers_mean
+Applying log transformation to column: total_SI_PI_vouchers_sum
+Applying log transformation to column: record_count_salary_months_used
+Applying log transformation to column: record_count_salary_mean
+Column 'add_api' is not in the list of predictors to log transform. Skipping.
+Column 'add_bank_account' is not in the list of predictors to log transform. Skipping.
+Column 'add_contract_invoicing' is not in the list of predictors to log transform. Skipping.
+Column 'add_cust_invoice' is not in the list of predictors to log transform. Skipping.
+Column 'add_ext_dimensions' is not in the list of predictors to log transform. Skipping.
+Column 'add_inventory' is not in the list of predictors to log transform. Skipping.
+Column 'add_junior' is not in the list of predictors to log transform. Skipping.
+Column 'add_mobile' is not in the list of predictors to log transform. Skipping.
+Column 'add_sftp' is not in the list of predictors to log transform. Skipping.
+Applying log transformation to column: mobile_user_count
+Column 'line_total_vat_0_rev_package' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_vat_0_rev_ex_vouchers' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_vat_0_rev_ex_employees' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_vat_0_rev_integrations' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_vat_0_rev_mobile' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_vat_0_rev_addon' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_vat_0_rev_trx' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_discounted_vat_0_rev_package' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_discounted_vat_0_rev_ex_vouchers' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_discounted_vat_0_rev_ex_employees' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_discounted_vat_0_rev_integrations' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_discounted_vat_0_rev_mobile' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_discounted_vat_0_rev_addon' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_discounted_vat_0_rev_trx' is not in the list of predictors to log transform. Skipping.
+Column 'total_revenue' is not in the list of predictors to log transform. Skipping.
+Column 'company_type_label_partnership' is not in the list of predictors to log transform. Skipping.
+Column 'company_type_label_sole_prop' is not in the list of predictors to log transform. Skipping.
+Column 'tol_1_eng_industry_b' is not in the list of predictors to log transform. Skipping.
+Column 'tol_1_eng_industry_c' is not in the list of predictors to log transform. Skipping.
+Column 'tol_2_eng_sub_industry_y' is not in the list of predictors to log transform. Skipping.
+
+Running module: log_transform_outcome on column: total_revenue
+Applying log transformation to column: total_revenue
+PASSED
+tests/test_revenue_analysis.py::test_revenue_by_segment     id    package  accounting_office_id company_type_label   tol_1_eng  \
+0    0  package_3                     8        Partnership  Industry A   
+1    1  package_1                     8          Sole Prop  Industry C   
+2    2  package_3                     3                LTD  Industry C   
+3    3  package_3                     1          Sole Prop  Industry A   
+4    4  package_1                     8          Sole Prop  Industry A   
+..  ..        ...                   ...                ...         ...   
+95  95  package_1                     7          Sole Prop  Industry A   
+96  96  package_1                     4                LTD  Industry B   
+97  97  package_3                     7        Partnership  Industry C   
+98  98  package_1                     8                LTD  Industry C   
+99  99  package_1                     1                LTD  Industry C   
+
+         tol_2_eng headcount_class revenue_class ao_revenue_class  \
+0   Sub-Industry Y         10 - 19      0 - 0.2M         0 - 0.2M   
+1   Sub-Industry Y         10 - 19    0.2 - 0.4M       0.2 - 0.4M   
+2   Sub-Industry Y         10 - 19      0 - 0.2M         0 - 0.2M   
+3   Sub-Industry X           5 - 9      0.4 - 1M       0.2 - 0.4M   
+4   Sub-Industry Y           2 - 4      0.4 - 1M       0.2 - 0.4M   
+..             ...             ...           ...              ...   
+95  Sub-Industry X               1    0.2 - 0.4M         0.4 - 1M   
+96  Sub-Industry Y               1      0 - 0.2M         0 - 0.2M   
+97  Sub-Industry X           2 - 4      0.4 - 1M       0.2 - 0.4M   
+98  Sub-Industry X         10 - 19      0 - 0.2M         0.4 - 1M   
+99  Sub-Industry Y         10 - 19      0 - 0.2M         0 - 0.2M   
+
+   ao_headcount_class  total_records_months_used  total_records_mean  \
+0               5 - 9                         11           62.788189   
+1                   1                         11           60.801269   
+2                   1                         11           44.089536   
+3                   1                          3           40.370215   
+4               2 - 4                          9           90.968266   
+..                ...                        ...                 ...   
+95              2 - 4                          2           30.612285   
+96              2 - 4                          4           58.856438   
+97                  1                          6           48.837533   
+98              2 - 4                          2           39.953421   
+99                  1                          8           75.749422   
+
+    total_records_sum  total_SI_PI_vouchers_months_used  \
+0          869.215016                                 1   
+1          300.069221                                 8   
+2         1068.919445                                 3   
+3          655.057517                                 2   
+4          920.777784                                 1   
+..                ...                               ...   
+95         443.563585                                 8   
+96         454.731880                                 1   
+97         549.103565                                10   
+98         580.932018                                 8   
+99         983.764584                                11   
+
+    total_SI_PI_vouchers_mean  total_SI_PI_vouchers_sum  \
+0                   45.254850                559.173946   
+1                   40.993487                584.371452   
+2                   24.134608                569.903904   
+3                    6.011119                316.075677   
+4                   17.090481                525.503032   
+..                        ...                       ...   
+95                  30.557535                533.828866   
+96                  46.196973                203.424023   
+97                   6.527569                129.938057   
+98                  36.383912                539.923963   
+99                  18.380705                576.051809   
+
+    record_count_salary_months_used  record_count_salary_mean  add_api  \
+0                                11                  2.050195        1   
+1                                 9                 18.744570        0   
+2                                 8                 13.757714        1   
+3                                 7                  1.356741        0   
+4                                 8                  6.019271        0   
+..                              ...                       ...      ...   
+95                                8                  9.977763        0   
+96                                1                 12.363115        1   
+97                               11                 14.049299        0   
+98                               11                 11.192974        1   
+99                                4                  0.195417        1   
+
+    add_bank_account  add_contract_invoicing  add_cust_invoice  \
+0                  0                       0                 1   
+1                  0                       0                 0   
+2                  0                       0                 1   
+3                  1                       0                 1   
+4                  1                       1                 0   
+..               ...                     ...               ...   
+95                 0                       0                 1   
+96                 0                       1                 1   
+97                 1                       0                 0   
+98                 1                       1                 0   
+99                 0                       1                 0   
+
+    add_ext_dimensions  add_inventory  add_junior  add_mobile  add_sftp  \
+0                    0              1           1           1         0   
+1                    0              1           1           1         0   
+2                    1              0           0           0         1   
+3                    1              1           0           0         0   
+4                    0              0           0           1         1   
+..                 ...            ...         ...         ...       ...   
+95                   1              0           1           1         1   
+96                   1              0           1           1         1   
+97                   1              0           1           1         1   
+98                   0              1           1           0         0   
+99                   0              0           0           1         1   
+
+    mobile_user_count  line_total_vat_0_rev_package  \
+0                   4                    139.358260   
+1                   3                    364.121088   
+2                   2                    405.749065   
+3                   6                    206.018571   
+4                   5                    108.377984   
+..                ...                           ...   
+95                  2                    398.293513   
+96                  6                    180.992224   
+97                  2                    483.229392   
+98                  2                    247.176301   
+99                  9                    230.772647   
+
+    line_total_vat_0_rev_ex_vouchers  line_total_vat_0_rev_ex_employees  \
+0                          29.777610                          73.135679   
+1                          61.120843                           5.042040   
+2                         175.330152                           9.397981   
+3                         199.266868                         135.965618   
+4                          73.661906                          20.886806   
+..                               ...                                ...   
+95                         54.389945                         118.989203   
+96                        151.879652                          47.514252   
+97                         89.947968                         128.576889   
+98                        155.342111                         135.921488   
+99                         13.073232                          41.535673   
+
+    line_total_vat_0_rev_integrations  line_total_vat_0_rev_mobile  \
+0                           98.352147                    45.538508   
+1                           14.071153                    37.698095   
+2                           20.201567                    40.245339   
+3                           18.422484                     0.900328   
+4                           89.398971                    48.140518   
+..                                ...                          ...   
+95                          73.990412                    46.587686   
+96                          91.807655                    19.850752   
+97                          28.003733                     4.354638   
+98                          85.834168                    30.853326   
+99                          29.221823                     5.691920   
+
+    line_total_vat_0_rev_addon  line_total_vat_0_rev_trx  \
+0                    27.617851                 18.160065   
+1                    40.592955                 27.530969   
+2                    69.937802                  5.622119   
+3                    39.483726                 19.423588   
+4                    56.180701                  1.101469   
+..                         ...                       ...   
+95                   54.169651                  8.018981   
+96                   48.462340                  4.370568   
+97                   29.167498                 34.158479   
+98                   17.431404                 17.565993   
+99                   79.042877                 33.878754   
+
+    line_total_discounted_vat_0_rev_package  \
+0                                410.443376   
+1                                103.109310   
+2                                406.881962   
+3                                245.878050   
+4                                268.860021   
+..                                      ...   
+95                                80.049836   
+96                               269.117782   
+97                                97.335206   
+98                               182.182736   
+99                               341.581300   
+
+    line_total_discounted_vat_0_rev_ex_vouchers  \
+0                                     11.284132   
+1                                    151.080929   
+2                                      0.687586   
+3                                     44.428296   
+4                                    133.362730   
+..                                          ...   
+95                                   138.628478   
+96                                   145.287997   
+97                                    21.637301   
+98                                    47.804910   
+99                                     3.159425   
+
+    line_total_discounted_vat_0_rev_ex_employees  \
+0                                      38.130119   
+1                                     100.508444   
+2                                      67.334869   
+3                                      45.252427   
+4                                      48.326108   
+..                                           ...   
+95                                     67.789753   
+96                                    127.050028   
+97                                     98.450327   
+98                                     21.017287   
+99                                     61.997014   
+
+    line_total_discounted_vat_0_rev_integrations  \
+0                                      64.649806   
+1                                      22.260628   
+2                                      57.655367   
+3                                      59.994043   
+4                                      14.642977   
+..                                           ...   
+95                                     47.025916   
+96                                      4.917098   
+97                                     87.577035   
+98                                     20.351280   
+99                                     27.377885   
+
+    line_total_discounted_vat_0_rev_mobile  \
+0                                13.677413   
+1                                10.368750   
+2                                 0.066322   
+3                                32.820516   
+4                                43.508047   
+..                                     ...   
+95                               25.728569   
+96                               37.477367   
+97                               40.773918   
+98                                0.547055   
+99                               30.330896   
+
+    line_total_discounted_vat_0_rev_addon  \
+0                                3.887685   
+1                               41.164400   
+2                               21.572455   
+3                               23.008245   
+4                               26.471888   
+..                                    ...   
+95                              19.403373   
+96                              32.580249   
+97                              54.258586   
+98                               0.679062   
+99                              44.209049   
+
+    line_total_discounted_vat_0_rev_trx  total_revenue  
+0                             21.465209     431.940121  
+1                             22.319089     550.177144  
+2                              8.470773     726.484024  
+3                             24.991845     619.481183  
+4                              3.198702     397.748355  
+..                                  ...            ...  
+95                            23.692927     754.439391  
+96                            29.326793     544.877444  
+97                            30.056750     797.438597  
+98                            26.192455     690.124791  
+99                            15.372371     433.216925  
+
+[100 rows x 43 columns] 
+
+
+Here is the info of the data:
+
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 100 entries, 0 to 99
+Data columns (total 43 columns):
+ #   Column                                        Non-Null Count  Dtype  
+---  ------                                        --------------  -----  
+ 0   id                                            100 non-null    int64  
+ 1   package                                       100 non-null    object 
+ 2   accounting_office_id                          100 non-null    int32  
+ 3   company_type_label                            100 non-null    object 
+ 4   tol_1_eng                                     100 non-null    object 
+ 5   tol_2_eng                                     100 non-null    object 
+ 6   headcount_class                               100 non-null    object 
+ 7   revenue_class                                 100 non-null    object 
+ 8   ao_revenue_class                              100 non-null    object 
+ 9   ao_headcount_class                            100 non-null    object 
+ 10  total_records_months_used                     100 non-null    int32  
+ 11  total_records_mean                            100 non-null    float64
+ 12  total_records_sum                             100 non-null    float64
+ 13  total_SI_PI_vouchers_months_used              100 non-null    int32  
+ 14  total_SI_PI_vouchers_mean                     100 non-null    float64
+ 15  total_SI_PI_vouchers_sum                      100 non-null    float64
+ 16  record_count_salary_months_used               100 non-null    int32  
+ 17  record_count_salary_mean                      100 non-null    float64
+ 18  add_api                                       100 non-null    int32  
+ 19  add_bank_account                              100 non-null    int32  
+ 20  add_contract_invoicing                        100 non-null    int32  
+ 21  add_cust_invoice                              100 non-null    int32  
+ 22  add_ext_dimensions                            100 non-null    int32  
+ 23  add_inventory                                 100 non-null    int32  
+ 24  add_junior                                    100 non-null    int32  
+ 25  add_mobile                                    100 non-null    int32  
+ 26  add_sftp                                      100 non-null    int32  
+ 27  mobile_user_count                             100 non-null    int32  
+ 28  line_total_vat_0_rev_package                  100 non-null    float64
+ 29  line_total_vat_0_rev_ex_vouchers              100 non-null    float64
+ 30  line_total_vat_0_rev_ex_employees             100 non-null    float64
+ 31  line_total_vat_0_rev_integrations             100 non-null    float64
+ 32  line_total_vat_0_rev_mobile                   100 non-null    float64
+ 33  line_total_vat_0_rev_addon                    100 non-null    float64
+ 34  line_total_vat_0_rev_trx                      100 non-null    float64
+ 35  line_total_discounted_vat_0_rev_package       100 non-null    float64
+ 36  line_total_discounted_vat_0_rev_ex_vouchers   100 non-null    float64
+ 37  line_total_discounted_vat_0_rev_ex_employees  100 non-null    float64
+ 38  line_total_discounted_vat_0_rev_integrations  100 non-null    float64
+ 39  line_total_discounted_vat_0_rev_mobile        100 non-null    float64
+ 40  line_total_discounted_vat_0_rev_addon         100 non-null    float64
+ 41  line_total_discounted_vat_0_rev_trx           100 non-null    float64
+ 42  total_revenue                                 100 non-null    float64
+dtypes: float64(20), int32(14), int64(1), object(8)
+memory usage: 28.3+ KB
+None 
+
+
+Normalizing categorical column: package
+Normalizing categorical column: company_type_label
+Normalizing categorical column: tol_1_eng
+Normalizing categorical column: tol_2_eng
+Skipping ordinal column: headcount_class
+Skipping ordinal column: revenue_class
+Skipping ordinal column: ao_revenue_class
+Skipping ordinal column: ao_headcount_class
+Normalizing numerical column: total_records_months_used
+Normalizing numerical column: total_records_mean
+Normalizing numerical column: total_records_sum
+Normalizing numerical column: total_SI_PI_vouchers_months_used
+Normalizing numerical column: total_SI_PI_vouchers_mean
+Normalizing numerical column: total_SI_PI_vouchers_sum
+Normalizing numerical column: record_count_salary_months_used
+Normalizing numerical column: record_count_salary_mean
+Normalizing numerical column: add_api
+Normalizing numerical column: add_bank_account
+Normalizing numerical column: add_contract_invoicing
+Normalizing numerical column: add_cust_invoice
+Normalizing numerical column: add_ext_dimensions
+Normalizing numerical column: add_inventory
+Normalizing numerical column: add_junior
+Normalizing numerical column: add_mobile
+Normalizing numerical column: add_sftp
+Normalizing numerical column: mobile_user_count
+
+
+One-hot encoding nominal columns: ['company_type_label', 'tol_1_eng', 'tol_2_eng']
+
+
+
+Doing the ordinal mapping of col -- package
+Doing the ordinal mapping of col -- headcount_class
+Doing the ordinal mapping of col -- revenue_class
+Doing the ordinal mapping of col -- ao_revenue_class
+Doing the ordinal mapping of col -- ao_headcount_class
+
+
+
+Column 'id' is not in the list of predictors to log transform. Skipping.
+Column 'package' is not in the list of predictors to log transform. Skipping.
+Column 'accounting_office_id' is not in the list of predictors to log transform. Skipping.
+Column 'headcount_class' is not in the list of predictors to log transform. Skipping.
+Column 'revenue_class' is not in the list of predictors to log transform. Skipping.
+Column 'ao_revenue_class' is not in the list of predictors to log transform. Skipping.
+Column 'ao_headcount_class' is not in the list of predictors to log transform. Skipping.
+Applying log transformation to column: total_records_months_used
+Applying log transformation to column: total_records_mean
+Applying log transformation to column: total_records_sum
+Applying log transformation to column: total_SI_PI_vouchers_months_used
+Applying log transformation to column: total_SI_PI_vouchers_mean
+Applying log transformation to column: total_SI_PI_vouchers_sum
+Applying log transformation to column: record_count_salary_months_used
+Applying log transformation to column: record_count_salary_mean
+Column 'add_api' is not in the list of predictors to log transform. Skipping.
+Column 'add_bank_account' is not in the list of predictors to log transform. Skipping.
+Column 'add_contract_invoicing' is not in the list of predictors to log transform. Skipping.
+Column 'add_cust_invoice' is not in the list of predictors to log transform. Skipping.
+Column 'add_ext_dimensions' is not in the list of predictors to log transform. Skipping.
+Column 'add_inventory' is not in the list of predictors to log transform. Skipping.
+Column 'add_junior' is not in the list of predictors to log transform. Skipping.
+Column 'add_mobile' is not in the list of predictors to log transform. Skipping.
+Column 'add_sftp' is not in the list of predictors to log transform. Skipping.
+Applying log transformation to column: mobile_user_count
+Column 'line_total_vat_0_rev_package' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_vat_0_rev_ex_vouchers' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_vat_0_rev_ex_employees' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_vat_0_rev_integrations' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_vat_0_rev_mobile' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_vat_0_rev_addon' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_vat_0_rev_trx' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_discounted_vat_0_rev_package' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_discounted_vat_0_rev_ex_vouchers' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_discounted_vat_0_rev_ex_employees' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_discounted_vat_0_rev_integrations' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_discounted_vat_0_rev_mobile' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_discounted_vat_0_rev_addon' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_discounted_vat_0_rev_trx' is not in the list of predictors to log transform. Skipping.
+Column 'total_revenue' is not in the list of predictors to log transform. Skipping.
+Column 'company_type_label_partnership' is not in the list of predictors to log transform. Skipping.
+Column 'company_type_label_sole_prop' is not in the list of predictors to log transform. Skipping.
+Column 'tol_1_eng_industry_b' is not in the list of predictors to log transform. Skipping.
+Column 'tol_1_eng_industry_c' is not in the list of predictors to log transform. Skipping.
+Column 'tol_2_eng_sub_industry_y' is not in the list of predictors to log transform. Skipping.
+
+Running module: log_transform_outcome on column: total_revenue
+Applying log transformation to column: total_revenue
+PASSED
+tests/test_revenue_analysis.py::test_feature_adopters     id    package  accounting_office_id company_type_label   tol_1_eng  \
+0    0  package_3                     8        Partnership  Industry A   
+1    1  package_1                     8          Sole Prop  Industry C   
+2    2  package_3                     3                LTD  Industry C   
+3    3  package_3                     1          Sole Prop  Industry A   
+4    4  package_1                     8          Sole Prop  Industry A   
+..  ..        ...                   ...                ...         ...   
+95  95  package_1                     7          Sole Prop  Industry A   
+96  96  package_1                     4                LTD  Industry B   
+97  97  package_3                     7        Partnership  Industry C   
+98  98  package_1                     8                LTD  Industry C   
+99  99  package_1                     1                LTD  Industry C   
+
+         tol_2_eng headcount_class revenue_class ao_revenue_class  \
+0   Sub-Industry Y         10 - 19      0 - 0.2M         0 - 0.2M   
+1   Sub-Industry Y         10 - 19    0.2 - 0.4M       0.2 - 0.4M   
+2   Sub-Industry Y         10 - 19      0 - 0.2M         0 - 0.2M   
+3   Sub-Industry X           5 - 9      0.4 - 1M       0.2 - 0.4M   
+4   Sub-Industry Y           2 - 4      0.4 - 1M       0.2 - 0.4M   
+..             ...             ...           ...              ...   
+95  Sub-Industry X               1    0.2 - 0.4M         0.4 - 1M   
+96  Sub-Industry Y               1      0 - 0.2M         0 - 0.2M   
+97  Sub-Industry X           2 - 4      0.4 - 1M       0.2 - 0.4M   
+98  Sub-Industry X         10 - 19      0 - 0.2M         0.4 - 1M   
+99  Sub-Industry Y         10 - 19      0 - 0.2M         0 - 0.2M   
+
+   ao_headcount_class  total_records_months_used  total_records_mean  \
+0               5 - 9                         11           62.788189   
+1                   1                         11           60.801269   
+2                   1                         11           44.089536   
+3                   1                          3           40.370215   
+4               2 - 4                          9           90.968266   
+..                ...                        ...                 ...   
+95              2 - 4                          2           30.612285   
+96              2 - 4                          4           58.856438   
+97                  1                          6           48.837533   
+98              2 - 4                          2           39.953421   
+99                  1                          8           75.749422   
+
+    total_records_sum  total_SI_PI_vouchers_months_used  \
+0          869.215016                                 1   
+1          300.069221                                 8   
+2         1068.919445                                 3   
+3          655.057517                                 2   
+4          920.777784                                 1   
+..                ...                               ...   
+95         443.563585                                 8   
+96         454.731880                                 1   
+97         549.103565                                10   
+98         580.932018                                 8   
+99         983.764584                                11   
+
+    total_SI_PI_vouchers_mean  total_SI_PI_vouchers_sum  \
+0                   45.254850                559.173946   
+1                   40.993487                584.371452   
+2                   24.134608                569.903904   
+3                    6.011119                316.075677   
+4                   17.090481                525.503032   
+..                        ...                       ...   
+95                  30.557535                533.828866   
+96                  46.196973                203.424023   
+97                   6.527569                129.938057   
+98                  36.383912                539.923963   
+99                  18.380705                576.051809   
+
+    record_count_salary_months_used  record_count_salary_mean  add_api  \
+0                                11                  2.050195        1   
+1                                 9                 18.744570        0   
+2                                 8                 13.757714        1   
+3                                 7                  1.356741        0   
+4                                 8                  6.019271        0   
+..                              ...                       ...      ...   
+95                                8                  9.977763        0   
+96                                1                 12.363115        1   
+97                               11                 14.049299        0   
+98                               11                 11.192974        1   
+99                                4                  0.195417        1   
+
+    add_bank_account  add_contract_invoicing  add_cust_invoice  \
+0                  0                       0                 1   
+1                  0                       0                 0   
+2                  0                       0                 1   
+3                  1                       0                 1   
+4                  1                       1                 0   
+..               ...                     ...               ...   
+95                 0                       0                 1   
+96                 0                       1                 1   
+97                 1                       0                 0   
+98                 1                       1                 0   
+99                 0                       1                 0   
+
+    add_ext_dimensions  add_inventory  add_junior  add_mobile  add_sftp  \
+0                    0              1           1           1         0   
+1                    0              1           1           1         0   
+2                    1              0           0           0         1   
+3                    1              1           0           0         0   
+4                    0              0           0           1         1   
+..                 ...            ...         ...         ...       ...   
+95                   1              0           1           1         1   
+96                   1              0           1           1         1   
+97                   1              0           1           1         1   
+98                   0              1           1           0         0   
+99                   0              0           0           1         1   
+
+    mobile_user_count  line_total_vat_0_rev_package  \
+0                   4                    139.358260   
+1                   3                    364.121088   
+2                   2                    405.749065   
+3                   6                    206.018571   
+4                   5                    108.377984   
+..                ...                           ...   
+95                  2                    398.293513   
+96                  6                    180.992224   
+97                  2                    483.229392   
+98                  2                    247.176301   
+99                  9                    230.772647   
+
+    line_total_vat_0_rev_ex_vouchers  line_total_vat_0_rev_ex_employees  \
+0                          29.777610                          73.135679   
+1                          61.120843                           5.042040   
+2                         175.330152                           9.397981   
+3                         199.266868                         135.965618   
+4                          73.661906                          20.886806   
+..                               ...                                ...   
+95                         54.389945                         118.989203   
+96                        151.879652                          47.514252   
+97                         89.947968                         128.576889   
+98                        155.342111                         135.921488   
+99                         13.073232                          41.535673   
+
+    line_total_vat_0_rev_integrations  line_total_vat_0_rev_mobile  \
+0                           98.352147                    45.538508   
+1                           14.071153                    37.698095   
+2                           20.201567                    40.245339   
+3                           18.422484                     0.900328   
+4                           89.398971                    48.140518   
+..                                ...                          ...   
+95                          73.990412                    46.587686   
+96                          91.807655                    19.850752   
+97                          28.003733                     4.354638   
+98                          85.834168                    30.853326   
+99                          29.221823                     5.691920   
+
+    line_total_vat_0_rev_addon  line_total_vat_0_rev_trx  \
+0                    27.617851                 18.160065   
+1                    40.592955                 27.530969   
+2                    69.937802                  5.622119   
+3                    39.483726                 19.423588   
+4                    56.180701                  1.101469   
+..                         ...                       ...   
+95                   54.169651                  8.018981   
+96                   48.462340                  4.370568   
+97                   29.167498                 34.158479   
+98                   17.431404                 17.565993   
+99                   79.042877                 33.878754   
+
+    line_total_discounted_vat_0_rev_package  \
+0                                410.443376   
+1                                103.109310   
+2                                406.881962   
+3                                245.878050   
+4                                268.860021   
+..                                      ...   
+95                                80.049836   
+96                               269.117782   
+97                                97.335206   
+98                               182.182736   
+99                               341.581300   
+
+    line_total_discounted_vat_0_rev_ex_vouchers  \
+0                                     11.284132   
+1                                    151.080929   
+2                                      0.687586   
+3                                     44.428296   
+4                                    133.362730   
+..                                          ...   
+95                                   138.628478   
+96                                   145.287997   
+97                                    21.637301   
+98                                    47.804910   
+99                                     3.159425   
+
+    line_total_discounted_vat_0_rev_ex_employees  \
+0                                      38.130119   
+1                                     100.508444   
+2                                      67.334869   
+3                                      45.252427   
+4                                      48.326108   
+..                                           ...   
+95                                     67.789753   
+96                                    127.050028   
+97                                     98.450327   
+98                                     21.017287   
+99                                     61.997014   
+
+    line_total_discounted_vat_0_rev_integrations  \
+0                                      64.649806   
+1                                      22.260628   
+2                                      57.655367   
+3                                      59.994043   
+4                                      14.642977   
+..                                           ...   
+95                                     47.025916   
+96                                      4.917098   
+97                                     87.577035   
+98                                     20.351280   
+99                                     27.377885   
+
+    line_total_discounted_vat_0_rev_mobile  \
+0                                13.677413   
+1                                10.368750   
+2                                 0.066322   
+3                                32.820516   
+4                                43.508047   
+..                                     ...   
+95                               25.728569   
+96                               37.477367   
+97                               40.773918   
+98                                0.547055   
+99                               30.330896   
+
+    line_total_discounted_vat_0_rev_addon  \
+0                                3.887685   
+1                               41.164400   
+2                               21.572455   
+3                               23.008245   
+4                               26.471888   
+..                                    ...   
+95                              19.403373   
+96                              32.580249   
+97                              54.258586   
+98                               0.679062   
+99                              44.209049   
+
+    line_total_discounted_vat_0_rev_trx  total_revenue  
+0                             21.465209     431.940121  
+1                             22.319089     550.177144  
+2                              8.470773     726.484024  
+3                             24.991845     619.481183  
+4                              3.198702     397.748355  
+..                                  ...            ...  
+95                            23.692927     754.439391  
+96                            29.326793     544.877444  
+97                            30.056750     797.438597  
+98                            26.192455     690.124791  
+99                            15.372371     433.216925  
+
+[100 rows x 43 columns] 
+
+
+Here is the info of the data:
+
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 100 entries, 0 to 99
+Data columns (total 43 columns):
+ #   Column                                        Non-Null Count  Dtype  
+---  ------                                        --------------  -----  
+ 0   id                                            100 non-null    int64  
+ 1   package                                       100 non-null    object 
+ 2   accounting_office_id                          100 non-null    int32  
+ 3   company_type_label                            100 non-null    object 
+ 4   tol_1_eng                                     100 non-null    object 
+ 5   tol_2_eng                                     100 non-null    object 
+ 6   headcount_class                               100 non-null    object 
+ 7   revenue_class                                 100 non-null    object 
+ 8   ao_revenue_class                              100 non-null    object 
+ 9   ao_headcount_class                            100 non-null    object 
+ 10  total_records_months_used                     100 non-null    int32  
+ 11  total_records_mean                            100 non-null    float64
+ 12  total_records_sum                             100 non-null    float64
+ 13  total_SI_PI_vouchers_months_used              100 non-null    int32  
+ 14  total_SI_PI_vouchers_mean                     100 non-null    float64
+ 15  total_SI_PI_vouchers_sum                      100 non-null    float64
+ 16  record_count_salary_months_used               100 non-null    int32  
+ 17  record_count_salary_mean                      100 non-null    float64
+ 18  add_api                                       100 non-null    int32  
+ 19  add_bank_account                              100 non-null    int32  
+ 20  add_contract_invoicing                        100 non-null    int32  
+ 21  add_cust_invoice                              100 non-null    int32  
+ 22  add_ext_dimensions                            100 non-null    int32  
+ 23  add_inventory                                 100 non-null    int32  
+ 24  add_junior                                    100 non-null    int32  
+ 25  add_mobile                                    100 non-null    int32  
+ 26  add_sftp                                      100 non-null    int32  
+ 27  mobile_user_count                             100 non-null    int32  
+ 28  line_total_vat_0_rev_package                  100 non-null    float64
+ 29  line_total_vat_0_rev_ex_vouchers              100 non-null    float64
+ 30  line_total_vat_0_rev_ex_employees             100 non-null    float64
+ 31  line_total_vat_0_rev_integrations             100 non-null    float64
+ 32  line_total_vat_0_rev_mobile                   100 non-null    float64
+ 33  line_total_vat_0_rev_addon                    100 non-null    float64
+ 34  line_total_vat_0_rev_trx                      100 non-null    float64
+ 35  line_total_discounted_vat_0_rev_package       100 non-null    float64
+ 36  line_total_discounted_vat_0_rev_ex_vouchers   100 non-null    float64
+ 37  line_total_discounted_vat_0_rev_ex_employees  100 non-null    float64
+ 38  line_total_discounted_vat_0_rev_integrations  100 non-null    float64
+ 39  line_total_discounted_vat_0_rev_mobile        100 non-null    float64
+ 40  line_total_discounted_vat_0_rev_addon         100 non-null    float64
+ 41  line_total_discounted_vat_0_rev_trx           100 non-null    float64
+ 42  total_revenue                                 100 non-null    float64
+dtypes: float64(20), int32(14), int64(1), object(8)
+memory usage: 28.3+ KB
+None 
+
+
+Normalizing categorical column: package
+Normalizing categorical column: company_type_label
+Normalizing categorical column: tol_1_eng
+Normalizing categorical column: tol_2_eng
+Skipping ordinal column: headcount_class
+Skipping ordinal column: revenue_class
+Skipping ordinal column: ao_revenue_class
+Skipping ordinal column: ao_headcount_class
+Normalizing numerical column: total_records_months_used
+Normalizing numerical column: total_records_mean
+Normalizing numerical column: total_records_sum
+Normalizing numerical column: total_SI_PI_vouchers_months_used
+Normalizing numerical column: total_SI_PI_vouchers_mean
+Normalizing numerical column: total_SI_PI_vouchers_sum
+Normalizing numerical column: record_count_salary_months_used
+Normalizing numerical column: record_count_salary_mean
+Normalizing numerical column: add_api
+Normalizing numerical column: add_bank_account
+Normalizing numerical column: add_contract_invoicing
+Normalizing numerical column: add_cust_invoice
+Normalizing numerical column: add_ext_dimensions
+Normalizing numerical column: add_inventory
+Normalizing numerical column: add_junior
+Normalizing numerical column: add_mobile
+Normalizing numerical column: add_sftp
+Normalizing numerical column: mobile_user_count
+
+
+One-hot encoding nominal columns: ['company_type_label', 'tol_1_eng', 'tol_2_eng']
+
+
+
+Doing the ordinal mapping of col -- package
+Doing the ordinal mapping of col -- headcount_class
+Doing the ordinal mapping of col -- revenue_class
+Doing the ordinal mapping of col -- ao_revenue_class
+Doing the ordinal mapping of col -- ao_headcount_class
+
+
+
+Column 'id' is not in the list of predictors to log transform. Skipping.
+Column 'package' is not in the list of predictors to log transform. Skipping.
+Column 'accounting_office_id' is not in the list of predictors to log transform. Skipping.
+Column 'headcount_class' is not in the list of predictors to log transform. Skipping.
+Column 'revenue_class' is not in the list of predictors to log transform. Skipping.
+Column 'ao_revenue_class' is not in the list of predictors to log transform. Skipping.
+Column 'ao_headcount_class' is not in the list of predictors to log transform. Skipping.
+Applying log transformation to column: total_records_months_used
+Applying log transformation to column: total_records_mean
+Applying log transformation to column: total_records_sum
+Applying log transformation to column: total_SI_PI_vouchers_months_used
+Applying log transformation to column: total_SI_PI_vouchers_mean
+Applying log transformation to column: total_SI_PI_vouchers_sum
+Applying log transformation to column: record_count_salary_months_used
+Applying log transformation to column: record_count_salary_mean
+Column 'add_api' is not in the list of predictors to log transform. Skipping.
+Column 'add_bank_account' is not in the list of predictors to log transform. Skipping.
+Column 'add_contract_invoicing' is not in the list of predictors to log transform. Skipping.
+Column 'add_cust_invoice' is not in the list of predictors to log transform. Skipping.
+Column 'add_ext_dimensions' is not in the list of predictors to log transform. Skipping.
+Column 'add_inventory' is not in the list of predictors to log transform. Skipping.
+Column 'add_junior' is not in the list of predictors to log transform. Skipping.
+Column 'add_mobile' is not in the list of predictors to log transform. Skipping.
+Column 'add_sftp' is not in the list of predictors to log transform. Skipping.
+Applying log transformation to column: mobile_user_count
+Column 'line_total_vat_0_rev_package' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_vat_0_rev_ex_vouchers' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_vat_0_rev_ex_employees' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_vat_0_rev_integrations' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_vat_0_rev_mobile' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_vat_0_rev_addon' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_vat_0_rev_trx' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_discounted_vat_0_rev_package' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_discounted_vat_0_rev_ex_vouchers' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_discounted_vat_0_rev_ex_employees' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_discounted_vat_0_rev_integrations' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_discounted_vat_0_rev_mobile' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_discounted_vat_0_rev_addon' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_discounted_vat_0_rev_trx' is not in the list of predictors to log transform. Skipping.
+Column 'total_revenue' is not in the list of predictors to log transform. Skipping.
+Column 'company_type_label_partnership' is not in the list of predictors to log transform. Skipping.
+Column 'company_type_label_sole_prop' is not in the list of predictors to log transform. Skipping.
+Column 'tol_1_eng_industry_b' is not in the list of predictors to log transform. Skipping.
+Column 'tol_1_eng_industry_c' is not in the list of predictors to log transform. Skipping.
+Column 'tol_2_eng_sub_industry_y' is not in the list of predictors to log transform. Skipping.
+
+Running module: log_transform_outcome on column: total_revenue
+Applying log transformation to column: total_revenue
+PASSED
+tests/test_revenue_analysis.py::test_high_activity_users     id    package  accounting_office_id company_type_label   tol_1_eng  \
+0    0  package_3                     8        Partnership  Industry A   
+1    1  package_1                     8          Sole Prop  Industry C   
+2    2  package_3                     3                LTD  Industry C   
+3    3  package_3                     1          Sole Prop  Industry A   
+4    4  package_1                     8          Sole Prop  Industry A   
+..  ..        ...                   ...                ...         ...   
+95  95  package_1                     7          Sole Prop  Industry A   
+96  96  package_1                     4                LTD  Industry B   
+97  97  package_3                     7        Partnership  Industry C   
+98  98  package_1                     8                LTD  Industry C   
+99  99  package_1                     1                LTD  Industry C   
+
+         tol_2_eng headcount_class revenue_class ao_revenue_class  \
+0   Sub-Industry Y         10 - 19      0 - 0.2M         0 - 0.2M   
+1   Sub-Industry Y         10 - 19    0.2 - 0.4M       0.2 - 0.4M   
+2   Sub-Industry Y         10 - 19      0 - 0.2M         0 - 0.2M   
+3   Sub-Industry X           5 - 9      0.4 - 1M       0.2 - 0.4M   
+4   Sub-Industry Y           2 - 4      0.4 - 1M       0.2 - 0.4M   
+..             ...             ...           ...              ...   
+95  Sub-Industry X               1    0.2 - 0.4M         0.4 - 1M   
+96  Sub-Industry Y               1      0 - 0.2M         0 - 0.2M   
+97  Sub-Industry X           2 - 4      0.4 - 1M       0.2 - 0.4M   
+98  Sub-Industry X         10 - 19      0 - 0.2M         0.4 - 1M   
+99  Sub-Industry Y         10 - 19      0 - 0.2M         0 - 0.2M   
+
+   ao_headcount_class  total_records_months_used  total_records_mean  \
+0               5 - 9                         11           62.788189   
+1                   1                         11           60.801269   
+2                   1                         11           44.089536   
+3                   1                          3           40.370215   
+4               2 - 4                          9           90.968266   
+..                ...                        ...                 ...   
+95              2 - 4                          2           30.612285   
+96              2 - 4                          4           58.856438   
+97                  1                          6           48.837533   
+98              2 - 4                          2           39.953421   
+99                  1                          8           75.749422   
+
+    total_records_sum  total_SI_PI_vouchers_months_used  \
+0          869.215016                                 1   
+1          300.069221                                 8   
+2         1068.919445                                 3   
+3          655.057517                                 2   
+4          920.777784                                 1   
+..                ...                               ...   
+95         443.563585                                 8   
+96         454.731880                                 1   
+97         549.103565                                10   
+98         580.932018                                 8   
+99         983.764584                                11   
+
+    total_SI_PI_vouchers_mean  total_SI_PI_vouchers_sum  \
+0                   45.254850                559.173946   
+1                   40.993487                584.371452   
+2                   24.134608                569.903904   
+3                    6.011119                316.075677   
+4                   17.090481                525.503032   
+..                        ...                       ...   
+95                  30.557535                533.828866   
+96                  46.196973                203.424023   
+97                   6.527569                129.938057   
+98                  36.383912                539.923963   
+99                  18.380705                576.051809   
+
+    record_count_salary_months_used  record_count_salary_mean  add_api  \
+0                                11                  2.050195        1   
+1                                 9                 18.744570        0   
+2                                 8                 13.757714        1   
+3                                 7                  1.356741        0   
+4                                 8                  6.019271        0   
+..                              ...                       ...      ...   
+95                                8                  9.977763        0   
+96                                1                 12.363115        1   
+97                               11                 14.049299        0   
+98                               11                 11.192974        1   
+99                                4                  0.195417        1   
+
+    add_bank_account  add_contract_invoicing  add_cust_invoice  \
+0                  0                       0                 1   
+1                  0                       0                 0   
+2                  0                       0                 1   
+3                  1                       0                 1   
+4                  1                       1                 0   
+..               ...                     ...               ...   
+95                 0                       0                 1   
+96                 0                       1                 1   
+97                 1                       0                 0   
+98                 1                       1                 0   
+99                 0                       1                 0   
+
+    add_ext_dimensions  add_inventory  add_junior  add_mobile  add_sftp  \
+0                    0              1           1           1         0   
+1                    0              1           1           1         0   
+2                    1              0           0           0         1   
+3                    1              1           0           0         0   
+4                    0              0           0           1         1   
+..                 ...            ...         ...         ...       ...   
+95                   1              0           1           1         1   
+96                   1              0           1           1         1   
+97                   1              0           1           1         1   
+98                   0              1           1           0         0   
+99                   0              0           0           1         1   
+
+    mobile_user_count  line_total_vat_0_rev_package  \
+0                   4                    139.358260   
+1                   3                    364.121088   
+2                   2                    405.749065   
+3                   6                    206.018571   
+4                   5                    108.377984   
+..                ...                           ...   
+95                  2                    398.293513   
+96                  6                    180.992224   
+97                  2                    483.229392   
+98                  2                    247.176301   
+99                  9                    230.772647   
+
+    line_total_vat_0_rev_ex_vouchers  line_total_vat_0_rev_ex_employees  \
+0                          29.777610                          73.135679   
+1                          61.120843                           5.042040   
+2                         175.330152                           9.397981   
+3                         199.266868                         135.965618   
+4                          73.661906                          20.886806   
+..                               ...                                ...   
+95                         54.389945                         118.989203   
+96                        151.879652                          47.514252   
+97                         89.947968                         128.576889   
+98                        155.342111                         135.921488   
+99                         13.073232                          41.535673   
+
+    line_total_vat_0_rev_integrations  line_total_vat_0_rev_mobile  \
+0                           98.352147                    45.538508   
+1                           14.071153                    37.698095   
+2                           20.201567                    40.245339   
+3                           18.422484                     0.900328   
+4                           89.398971                    48.140518   
+..                                ...                          ...   
+95                          73.990412                    46.587686   
+96                          91.807655                    19.850752   
+97                          28.003733                     4.354638   
+98                          85.834168                    30.853326   
+99                          29.221823                     5.691920   
+
+    line_total_vat_0_rev_addon  line_total_vat_0_rev_trx  \
+0                    27.617851                 18.160065   
+1                    40.592955                 27.530969   
+2                    69.937802                  5.622119   
+3                    39.483726                 19.423588   
+4                    56.180701                  1.101469   
+..                         ...                       ...   
+95                   54.169651                  8.018981   
+96                   48.462340                  4.370568   
+97                   29.167498                 34.158479   
+98                   17.431404                 17.565993   
+99                   79.042877                 33.878754   
+
+    line_total_discounted_vat_0_rev_package  \
+0                                410.443376   
+1                                103.109310   
+2                                406.881962   
+3                                245.878050   
+4                                268.860021   
+..                                      ...   
+95                                80.049836   
+96                               269.117782   
+97                                97.335206   
+98                               182.182736   
+99                               341.581300   
+
+    line_total_discounted_vat_0_rev_ex_vouchers  \
+0                                     11.284132   
+1                                    151.080929   
+2                                      0.687586   
+3                                     44.428296   
+4                                    133.362730   
+..                                          ...   
+95                                   138.628478   
+96                                   145.287997   
+97                                    21.637301   
+98                                    47.804910   
+99                                     3.159425   
+
+    line_total_discounted_vat_0_rev_ex_employees  \
+0                                      38.130119   
+1                                     100.508444   
+2                                      67.334869   
+3                                      45.252427   
+4                                      48.326108   
+..                                           ...   
+95                                     67.789753   
+96                                    127.050028   
+97                                     98.450327   
+98                                     21.017287   
+99                                     61.997014   
+
+    line_total_discounted_vat_0_rev_integrations  \
+0                                      64.649806   
+1                                      22.260628   
+2                                      57.655367   
+3                                      59.994043   
+4                                      14.642977   
+..                                           ...   
+95                                     47.025916   
+96                                      4.917098   
+97                                     87.577035   
+98                                     20.351280   
+99                                     27.377885   
+
+    line_total_discounted_vat_0_rev_mobile  \
+0                                13.677413   
+1                                10.368750   
+2                                 0.066322   
+3                                32.820516   
+4                                43.508047   
+..                                     ...   
+95                               25.728569   
+96                               37.477367   
+97                               40.773918   
+98                                0.547055   
+99                               30.330896   
+
+    line_total_discounted_vat_0_rev_addon  \
+0                                3.887685   
+1                               41.164400   
+2                               21.572455   
+3                               23.008245   
+4                               26.471888   
+..                                    ...   
+95                              19.403373   
+96                              32.580249   
+97                              54.258586   
+98                               0.679062   
+99                              44.209049   
+
+    line_total_discounted_vat_0_rev_trx  total_revenue  
+0                             21.465209     431.940121  
+1                             22.319089     550.177144  
+2                              8.470773     726.484024  
+3                             24.991845     619.481183  
+4                              3.198702     397.748355  
+..                                  ...            ...  
+95                            23.692927     754.439391  
+96                            29.326793     544.877444  
+97                            30.056750     797.438597  
+98                            26.192455     690.124791  
+99                            15.372371     433.216925  
+
+[100 rows x 43 columns] 
+
+
+Here is the info of the data:
+
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 100 entries, 0 to 99
+Data columns (total 43 columns):
+ #   Column                                        Non-Null Count  Dtype  
+---  ------                                        --------------  -----  
+ 0   id                                            100 non-null    int64  
+ 1   package                                       100 non-null    object 
+ 2   accounting_office_id                          100 non-null    int32  
+ 3   company_type_label                            100 non-null    object 
+ 4   tol_1_eng                                     100 non-null    object 
+ 5   tol_2_eng                                     100 non-null    object 
+ 6   headcount_class                               100 non-null    object 
+ 7   revenue_class                                 100 non-null    object 
+ 8   ao_revenue_class                              100 non-null    object 
+ 9   ao_headcount_class                            100 non-null    object 
+ 10  total_records_months_used                     100 non-null    int32  
+ 11  total_records_mean                            100 non-null    float64
+ 12  total_records_sum                             100 non-null    float64
+ 13  total_SI_PI_vouchers_months_used              100 non-null    int32  
+ 14  total_SI_PI_vouchers_mean                     100 non-null    float64
+ 15  total_SI_PI_vouchers_sum                      100 non-null    float64
+ 16  record_count_salary_months_used               100 non-null    int32  
+ 17  record_count_salary_mean                      100 non-null    float64
+ 18  add_api                                       100 non-null    int32  
+ 19  add_bank_account                              100 non-null    int32  
+ 20  add_contract_invoicing                        100 non-null    int32  
+ 21  add_cust_invoice                              100 non-null    int32  
+ 22  add_ext_dimensions                            100 non-null    int32  
+ 23  add_inventory                                 100 non-null    int32  
+ 24  add_junior                                    100 non-null    int32  
+ 25  add_mobile                                    100 non-null    int32  
+ 26  add_sftp                                      100 non-null    int32  
+ 27  mobile_user_count                             100 non-null    int32  
+ 28  line_total_vat_0_rev_package                  100 non-null    float64
+ 29  line_total_vat_0_rev_ex_vouchers              100 non-null    float64
+ 30  line_total_vat_0_rev_ex_employees             100 non-null    float64
+ 31  line_total_vat_0_rev_integrations             100 non-null    float64
+ 32  line_total_vat_0_rev_mobile                   100 non-null    float64
+ 33  line_total_vat_0_rev_addon                    100 non-null    float64
+ 34  line_total_vat_0_rev_trx                      100 non-null    float64
+ 35  line_total_discounted_vat_0_rev_package       100 non-null    float64
+ 36  line_total_discounted_vat_0_rev_ex_vouchers   100 non-null    float64
+ 37  line_total_discounted_vat_0_rev_ex_employees  100 non-null    float64
+ 38  line_total_discounted_vat_0_rev_integrations  100 non-null    float64
+ 39  line_total_discounted_vat_0_rev_mobile        100 non-null    float64
+ 40  line_total_discounted_vat_0_rev_addon         100 non-null    float64
+ 41  line_total_discounted_vat_0_rev_trx           100 non-null    float64
+ 42  total_revenue                                 100 non-null    float64
+dtypes: float64(20), int32(14), int64(1), object(8)
+memory usage: 28.3+ KB
+None 
+
+
+Normalizing categorical column: package
+Normalizing categorical column: company_type_label
+Normalizing categorical column: tol_1_eng
+Normalizing categorical column: tol_2_eng
+Skipping ordinal column: headcount_class
+Skipping ordinal column: revenue_class
+Skipping ordinal column: ao_revenue_class
+Skipping ordinal column: ao_headcount_class
+Normalizing numerical column: total_records_months_used
+Normalizing numerical column: total_records_mean
+Normalizing numerical column: total_records_sum
+Normalizing numerical column: total_SI_PI_vouchers_months_used
+Normalizing numerical column: total_SI_PI_vouchers_mean
+Normalizing numerical column: total_SI_PI_vouchers_sum
+Normalizing numerical column: record_count_salary_months_used
+Normalizing numerical column: record_count_salary_mean
+Normalizing numerical column: add_api
+Normalizing numerical column: add_bank_account
+Normalizing numerical column: add_contract_invoicing
+Normalizing numerical column: add_cust_invoice
+Normalizing numerical column: add_ext_dimensions
+Normalizing numerical column: add_inventory
+Normalizing numerical column: add_junior
+Normalizing numerical column: add_mobile
+Normalizing numerical column: add_sftp
+Normalizing numerical column: mobile_user_count
+
+
+One-hot encoding nominal columns: ['company_type_label', 'tol_1_eng', 'tol_2_eng']
+
+
+
+Doing the ordinal mapping of col -- package
+Doing the ordinal mapping of col -- headcount_class
+Doing the ordinal mapping of col -- revenue_class
+Doing the ordinal mapping of col -- ao_revenue_class
+Doing the ordinal mapping of col -- ao_headcount_class
+
+
+
+Column 'id' is not in the list of predictors to log transform. Skipping.
+Column 'package' is not in the list of predictors to log transform. Skipping.
+Column 'accounting_office_id' is not in the list of predictors to log transform. Skipping.
+Column 'headcount_class' is not in the list of predictors to log transform. Skipping.
+Column 'revenue_class' is not in the list of predictors to log transform. Skipping.
+Column 'ao_revenue_class' is not in the list of predictors to log transform. Skipping.
+Column 'ao_headcount_class' is not in the list of predictors to log transform. Skipping.
+Applying log transformation to column: total_records_months_used
+Applying log transformation to column: total_records_mean
+Applying log transformation to column: total_records_sum
+Applying log transformation to column: total_SI_PI_vouchers_months_used
+Applying log transformation to column: total_SI_PI_vouchers_mean
+Applying log transformation to column: total_SI_PI_vouchers_sum
+Applying log transformation to column: record_count_salary_months_used
+Applying log transformation to column: record_count_salary_mean
+Column 'add_api' is not in the list of predictors to log transform. Skipping.
+Column 'add_bank_account' is not in the list of predictors to log transform. Skipping.
+Column 'add_contract_invoicing' is not in the list of predictors to log transform. Skipping.
+Column 'add_cust_invoice' is not in the list of predictors to log transform. Skipping.
+Column 'add_ext_dimensions' is not in the list of predictors to log transform. Skipping.
+Column 'add_inventory' is not in the list of predictors to log transform. Skipping.
+Column 'add_junior' is not in the list of predictors to log transform. Skipping.
+Column 'add_mobile' is not in the list of predictors to log transform. Skipping.
+Column 'add_sftp' is not in the list of predictors to log transform. Skipping.
+Applying log transformation to column: mobile_user_count
+Column 'line_total_vat_0_rev_package' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_vat_0_rev_ex_vouchers' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_vat_0_rev_ex_employees' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_vat_0_rev_integrations' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_vat_0_rev_mobile' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_vat_0_rev_addon' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_vat_0_rev_trx' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_discounted_vat_0_rev_package' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_discounted_vat_0_rev_ex_vouchers' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_discounted_vat_0_rev_ex_employees' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_discounted_vat_0_rev_integrations' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_discounted_vat_0_rev_mobile' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_discounted_vat_0_rev_addon' is not in the list of predictors to log transform. Skipping.
+Column 'line_total_discounted_vat_0_rev_trx' is not in the list of predictors to log transform. Skipping.
+Column 'total_revenue' is not in the list of predictors to log transform. Skipping.
+Column 'company_type_label_partnership' is not in the list of predictors to log transform. Skipping.
+Column 'company_type_label_sole_prop' is not in the list of predictors to log transform. Skipping.
+Column 'tol_1_eng_industry_b' is not in the list of predictors to log transform. Skipping.
+Column 'tol_1_eng_industry_c' is not in the list of predictors to log transform. Skipping.
+Column 'tol_2_eng_sub_industry_y' is not in the list of predictors to log transform. Skipping.
+
+Running module: log_transform_outcome on column: total_revenue
+Applying log transformation to column: total_revenue
+PASSED
+
+============================== 5 passed in 0.73s ==============================

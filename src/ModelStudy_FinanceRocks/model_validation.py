@@ -18,7 +18,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score, mean_squared_error, mean_absolute_error, make_scorer
 import warnings
 
-from model_training import OLSModelTrainer
+from .model_training import OLSModelTrainer
 
 
 class ModelValidator:

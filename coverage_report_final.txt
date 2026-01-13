@@ -1,0 +1,37 @@
+============================= test session starts =============================
+platform win32 -- Python 3.11.9, pytest-9.0.2, pluggy-1.6.0
+rootdir: c:\Users\shara\Documents\PersonalBackedup\Resume\FinnDotNo\Accountor Case Study\Senior Data Scientist - Case Materials - outer\Senior Revenue Analyst - Case Materials - inner\ModelStudy_FinanceRocks
+configfile: pyproject.toml
+plugins: cov-7.0.0
+collected 21 items
+
+tests\test_ModelStudy_FR.py .                                            [  4%]
+tests\test_data_preparation.py ....                                      [ 23%]
+tests\test_model_diagnostics.py ....                                     [ 42%]
+tests\test_model_training.py ...                                         [ 57%]
+tests\test_model_validation.py ...                                       [ 71%]
+tests\test_pipeline_orchestrator.py .                                    [ 76%]
+tests\test_revenue_analysis.py .....                                     [100%]
+
+=============================== tests coverage ================================
+_______________ coverage: platform win32, python 3.11.9-final-0 _______________
+
+Name                                                                Stmts   Miss  Cover   Missing
+-------------------------------------------------------------------------------------------------
+src\ModelStudy_FinanceRocks\ModelStudy_FR.py                          324    157    52%   164-165, 193, 231-235, 238-255, 259-263, 267-281, 305-334, 338-353, 389-424, 453-494, 501-523, 564-620, 634, 644-645, 652-656, 801, 885-886, 908-914, 920, 1170-1171, 1239, 1271, 1282, 1295-1300, 1311, 1322, 1333-1339
+src\ModelStudy_FinanceRocks\__init__.py                                 2      0   100%
+src\ModelStudy_FinanceRocks\__main__.py                                 3      3     0%   1-4
+src\ModelStudy_FinanceRocks\cli.py                                     13     13     0%   3-23
+src\ModelStudy_FinanceRocks\data_preparation.py                        78      3    96%   67-69
+src\ModelStudy_FinanceRocks\finnish_ltd_market_profile.py              36     36     0%   1-102
+src\ModelStudy_FinanceRocks\model_diagnostics.py                      227     37    84%   89, 115-116, 138-145, 149-156, 160-167, 198, 237-238, 246-247, 257-261, 266-267, 276-277, 325, 494
+src\ModelStudy_FinanceRocks\model_training.py                         130      2    98%   274, 280
+src\ModelStudy_FinanceRocks\model_validation.py                       148     13    91%   121, 151-153, 214-217, 317-318, 356, 368-371
+src\ModelStudy_FinanceRocks\pipeline_orchestrator.py                  142     15    89%   67, 96-99, 177, 225, 269, 274, 328, 429-433
+src\ModelStudy_FinanceRocks\prepAndTrainWithParams.py                 617    617     0%   12-1538
+src\ModelStudy_FinanceRocks\prepAndTrainWithParams_LASSO_RIDGE.py     638    638     0%   12-1816
+src\ModelStudy_FinanceRocks\revenue_analysis.py                       164     10    94%   280-281, 362-363, 366-367, 428-431
+src\ModelStudy_FinanceRocks\utils.py                                   23     23     0%   5-39
+-------------------------------------------------------------------------------------------------
+TOTAL                                                                2545   1567    38%
+============================= 21 passed in 20.30s =============================

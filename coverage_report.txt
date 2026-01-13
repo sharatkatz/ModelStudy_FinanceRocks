@@ -1,0 +1,37 @@
+============================= test session starts =============================
+platform win32 -- Python 3.11.9, pytest-9.0.2, pluggy-1.6.0
+rootdir: c:\Users\shara\Documents\PersonalBackedup\Resume\FinnDotNo\Accountor Case Study\Senior Data Scientist - Case Materials - outer\Senior Revenue Analyst - Case Materials - inner\ModelStudy_FinanceRocks
+configfile: pyproject.toml
+plugins: cov-7.0.0
+collected 21 items
+
+tests\test_ModelStudy_FR.py .                                            [  4%]
+tests\test_data_preparation.py ....                                      [ 23%]
+tests\test_model_diagnostics.py ....                                     [ 42%]
+tests\test_model_training.py ...                                         [ 57%]
+tests\test_model_validation.py ...                                       [ 71%]
+tests\test_pipeline_orchestrator.py .                                    [ 76%]
+tests\test_revenue_analysis.py .....                                     [100%]
+
+=============================== tests coverage ================================
+_______________ coverage: platform win32, python 3.11.9-final-0 _______________
+
+Name                                                                Stmts   Miss  Cover
+---------------------------------------------------------------------------------------
+src\ModelStudy_FinanceRocks\ModelStudy_FR.py                          324    324     0%
+src\ModelStudy_FinanceRocks\__init__.py                                 2      0   100%
+src\ModelStudy_FinanceRocks\__main__.py                                 3      3     0%
+src\ModelStudy_FinanceRocks\cli.py                                     12     12     0%
+src\ModelStudy_FinanceRocks\data_preparation.py                        78      3    96%
+src\ModelStudy_FinanceRocks\finnish_ltd_market_profile.py              36     36     0%
+src\ModelStudy_FinanceRocks\model_diagnostics.py                      227     37    84%
+src\ModelStudy_FinanceRocks\model_training.py                         130      2    98%
+src\ModelStudy_FinanceRocks\model_validation.py                       148     13    91%
+src\ModelStudy_FinanceRocks\pipeline_orchestrator.py                  142     15    89%
+src\ModelStudy_FinanceRocks\prepAndTrainWithParams.py                 617    617     0%
+src\ModelStudy_FinanceRocks\prepAndTrainWithParams_LASSO_RIDGE.py     638    638     0%
+src\ModelStudy_FinanceRocks\revenue_analysis.py                       164    164     0%
+src\ModelStudy_FinanceRocks\utils.py                                   23     23     0%
+---------------------------------------------------------------------------------------
+TOTAL                                                                2544   1887    26%
+============================= 21 passed in 23.56s =============================

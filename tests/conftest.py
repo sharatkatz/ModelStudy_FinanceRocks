@@ -3,6 +3,8 @@ import pandas as pd
 import numpy as np
 import os
 import shutil
+import matplotlib
+matplotlib.use('Agg')
 from pathlib import Path
 from ModelStudy_FinanceRocks.data_preparation import DataPreparationPipeline
 from ModelStudy_FinanceRocks.ModelStudy_FR import PreProcessor

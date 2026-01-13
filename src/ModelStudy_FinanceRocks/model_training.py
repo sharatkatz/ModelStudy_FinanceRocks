@@ -14,7 +14,7 @@ import pandas as pd
 import numpy as np
 import statsmodels.api as sm  # type: ignore
 from typing import List, Tuple
-from data_preparation import DataPreparationPipeline
+from .data_preparation import DataPreparationPipeline
 
 
 class OLSModelTrainer:

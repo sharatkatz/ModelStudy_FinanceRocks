@@ -14,7 +14,7 @@ import os
 import logging
 import pandas as pd
 from typing import Tuple
-from ModelStudy_FR import setup_temp_plot_directory, PreProcessor  # type: ignore
+from .ModelStudy_FR import setup_temp_plot_directory, PreProcessor  # type: ignore
 
 pd.set_option('display.max_columns', None)
 

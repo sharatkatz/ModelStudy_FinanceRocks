@@ -13,12 +13,12 @@ import os
 import logging
 from typing import Dict, Any, Optional
 
-from data_preparation import DataPreparationPipeline
-from model_training import OLSModelTrainer
-from model_validation import ModelValidator
-from model_diagnostics import ModelDiagnostics
-from revenue_analysis import RevenueAnalyzer
-from ModelStudy_FR import setup_temp_plot_directory  # type: ignore
+from .data_preparation import DataPreparationPipeline
+from .model_training import OLSModelTrainer
+from .model_validation import ModelValidator
+from .model_diagnostics import ModelDiagnostics
+from .revenue_analysis import RevenueAnalyzer
+from .ModelStudy_FR import setup_temp_plot_directory  # type: ignore
 
 
 class ModelingPipeline:
